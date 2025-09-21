@@ -1,16 +1,25 @@
 import pino from 'pino';
 
 // Environment-aware logger configuration
-const isDevelopment = (import.meta as any).env?.DEV ?? false;
-const isProduction = (import.meta as any).env?.PROD ?? true;
-const isVercel = (import.meta as any).env?.VERCEL === '1';
+const env = (import.meta as any).env ?? {};
+const isDevelopment = env.DEV ?? false;
+const isProduction = env.PROD ?? true;
+const isVercel = env.VERCEL === '1';
 
-// Log levels for different environments
-const logLevel = isDevelopment ? 'debug' : 'info';
+// Resolve configured log level if provided
+type PinoLevel = 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'fatal';
+const allowedLevels: PinoLevel[] = ['trace', 'debug', 'info', 'warn', 'error', 'fatal'];
+const envLogLevel = (env.LOG_LEVEL as PinoLevel | undefined)?.toLowerCase?.();
+const resolvedLevel: PinoLevel = envLogLevel && allowedLevels.includes(envLogLevel as PinoLevel)
+  ? (envLogLevel as PinoLevel)
+  : (isDevelopment ? 'debug' : 'info');
+
+// Structured logging toggle
+const enableStructured = String(env.ENABLE_STRUCTURED_LOGGING ?? '').toLowerCase() === 'true';
 
 // Base logger configuration
 const baseConfig = {
-  level: logLevel,
+  level: resolvedLevel,
   timestamp: pino.stdTimeFunctions.isoTime,
   formatters: {
     level: (label: string) => ({ level: label }),
@@ -18,7 +27,7 @@ const baseConfig = {
       // Add environment context
       return {
         ...object,
-        env: isVercel ? 'vercel' : isProduction ? 'production' : 'development',
+        env: (env.LOG_ENVIRONMENT as string) || (isVercel ? 'vercel' : isProduction ? 'production' : 'development'),
         timestamp: new Date().toISOString(),
       };
     },
@@ -32,10 +41,12 @@ const baseConfig = {
   },
 };
 
-// Development configuration with pretty printing
+// Development configuration with pretty printing (unless structured logging is explicitly enabled)
 const devConfig = {
   ...baseConfig,
-  transport: {
+  transport: enableStructured
+    ? undefined
+    : {
     target: 'pino-pretty',
     options: {
       colorize: true,
@@ -43,7 +54,7 @@ const devConfig = {
       ignore: 'pid,hostname',
       messageFormat: '{msg} {req.method} {req.url} {responseTime}ms',
     },
-  },
+    },
 };
 
 // Production configuration optimized for Vercel

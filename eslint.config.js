@@ -2,9 +2,12 @@ import js from '@eslint/js';
 import typescript from '@typescript-eslint/eslint-plugin';
 import typescriptParser from '@typescript-eslint/parser';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
+import astro from 'eslint-plugin-astro';
 import prettier from 'eslint-config-prettier';
 
 export default [
+  // Enable Astro linting for .astro files
+  astro.configs.recommended,
   js.configs.recommended,
   {
     files: ['**/*.{js,ts}'],
@@ -47,7 +50,7 @@ export default [
     },
   },
   {
-    ignores: ['**/*.astro', '.astro/**/*', 'dist/**/*', 'node_modules/**/*'],
+    ignores: ['.astro/**/*', 'dist/**/*', 'node_modules/**/*'],
   },
   prettier,
 ];

@@ -27,16 +27,6 @@ export default defineConfig({
 
   // Vite configuration for better performance
   vite: {
-    // Build optimizations
-    build: {
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            'astro': ['astro'],
-            'tailwind': ['tailwindcss']
-          }
-        }
-      }
-    }
+    // Keep vite defaults minimal for a boilerplate; customize per project as needed
   }
 });

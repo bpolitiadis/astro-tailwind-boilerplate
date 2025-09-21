@@ -9,6 +9,3 @@ export { default as CardDescription } from './CardDescription.astro'
 export { default as CardContent } from './CardContent.astro'
 export { default as CardFooter } from './CardFooter.astro'
 export { default as Badge } from './Badge.astro'
-
-// Utilities
-export { cn } from '../../lib/utils'
