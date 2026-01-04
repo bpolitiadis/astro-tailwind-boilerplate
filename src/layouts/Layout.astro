@@ -1,6 +1,5 @@
 ---
 import { logPageView, logComponentLifecycle } from '../lib/logger';
-import { generateFontPreloads } from '../lib/fonts';
 import { generateLocalBusinessSchema, generateWebSiteSchema, generateWebPageSchema, generateSchemaScripts } from '../lib/schema';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -28,8 +27,6 @@ const {
 const ogImage = image || boilerplateImage6.src;
 const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site);
 
-// Generate font preloads
-const fontPreloads = generateFontPreloads();
 
 // Generate structured data schemas
 const localBusinessSchema = generateLocalBusinessSchema();
@@ -58,8 +55,6 @@ logComponentLifecycle('Layout', 'render', {
     <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
     <meta name='generator' content={Astro.generator} />
     
-    <!-- Font preloading for performance -->
-    <Fragment set:html={fontPreloads} />
     
     <!-- Canonical URL -->
     <link rel='canonical' href={canonicalUrl} />
@@ -103,7 +98,6 @@ logComponentLifecycle('Layout', 'render', {
       // Performance monitoring initialization
       import { initPerformanceMonitoring, measurePerformance } from '../lib/performance';
       import { initLazyLoading, measureImageLoading } from '../lib/images';
-      import { measureFontLoading } from '../lib/fonts';
       
       // Initialize performance monitoring
       initPerformanceMonitoring();
@@ -111,8 +105,6 @@ logComponentLifecycle('Layout', 'render', {
       // Initialize lazy loading
       initLazyLoading();
       
-      // Measure font loading performance
-      measureFontLoading();
       
       // Measure image loading performance
       measureImageLoading();

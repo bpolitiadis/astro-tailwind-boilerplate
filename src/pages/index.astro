@@ -57,6 +57,15 @@ logComponentLifecycle('HomePage', 'render', {
             View on GitHub
           </Button>
         </div>
+
+        <!-- Hero Image (placeholder for tests) -->
+        <div class='mt-12' data-testid='home-hero-image'>
+          <div class='w-32 h-32 mx-auto bg-gradient-to-br from-primary-500 to-blue-600 rounded-2xl shadow-xl flex items-center justify-center'>
+            <svg class='w-16 h-16 text-white' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+              <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M13 10V3L4 14h7v7l9-11h-7z'></path>
+            </svg>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -65,12 +74,12 @@ logComponentLifecycle('HomePage', 'render', {
   <section class='section-padding bg-gray-50/50' data-testid='home-features'>
     <div class='container-custom px-32 py-32'>
       <div class='text-center mb-16'>
-        <h2 class='text-3xl sm:text-4xl font-bold text-gray-900 mb-4'>Built with Modern Components</h2>
-        <p class='text-lg text-gray-600 max-w-2xl mx-auto'>Experience the power of shadcn/ui components integrated with Astro and Tailwind CSS</p>
+        <h2 class='text-3xl sm:text-4xl font-bold text-gray-900 mb-4' data-testid='home-features-title'>Built with Modern Components</h2>
+        <p class='text-lg text-gray-600 max-w-2xl mx-auto' data-testid='home-features-description'>Experience the power of shadcn/ui components integrated with Astro and Tailwind CSS</p>
       </div>
       
-      <div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
-        <Card class='text-center'>
+      <div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8' data-testid='home-features-grid'>
+        <Card class='text-center' data-testid='home-feature-card-performance'>
           <CardHeader>
             <div class='mx-auto w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4'>
               <svg class='w-6 h-6 text-primary' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
@@ -88,7 +97,7 @@ logComponentLifecycle('HomePage', 'render', {
           </CardContent>
         </Card>
 
-        <Card class='text-center'>
+        <Card class='text-center' data-testid='home-feature-card-design'>
           <CardHeader>
             <div class='mx-auto w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4'>
               <svg class='w-6 h-6 text-primary' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
@@ -106,7 +115,7 @@ logComponentLifecycle('HomePage', 'render', {
           </CardContent>
         </Card>
 
-        <Card class='text-center'>
+        <Card class='text-center' data-testid='home-feature-card-typescript'>
           <CardHeader>
             <div class='mx-auto w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4'>
               <svg class='w-6 h-6 text-primary' fill='none' stroke='currentColor' viewBox='0 0 24 24'>

@@ -59,7 +59,7 @@ test.describe('Homepage', () => {
     const consoleErrors: string[] = [];
     page.on('console', msg => {
       if (msg.type() === 'error') {
-        consoleErrors.push(msg.text());
+        consoleErrors.push(`${msg.text()} - ${msg.location()?.url || 'unknown url'}`);
       }
     });
 

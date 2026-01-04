@@ -1,13 +1,14 @@
 ---
 export interface Props {
   class?: string
+  [key: string]: any
 }
 
-const { class: className = '' } = Astro.props
+const { class: className = '', ...rest } = Astro.props
 const baseClasses = 'flex items-center p-6 pt-0'
 const classes = `${baseClasses} ${className}`
 ---
 
-<div class={classes}>
+<div class={classes} {...rest}>
   <slot />
 </div>
