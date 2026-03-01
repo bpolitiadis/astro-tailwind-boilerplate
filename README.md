@@ -1,10 +1,8 @@
-# Astro Tailwind Boilerplate
+# Dr. Papageorgiou Website
 
-> Template/Boilerplate Notice
->
-> This repository is a production-ready boilerplate template. It ships with working core functionality (Astro, Tailwind CSS, logging, testing, SEO, and deployment) so you can parameterize it (branding, copy, tokens, config) and start building immediately.
+> Professional medical website built with modern web technologies
 
-A production-ready Astro + Tailwind CSS boilerplate with TypeScript, ESLint, Prettier, Playwright, comprehensive logging, and SEO optimization.
+A production-ready website for Dr. Papageorgiou, built with Astro + Tailwind CSS, featuring TypeScript, comprehensive logging, and SEO optimization.
 
 ## 🚀 Features
 
