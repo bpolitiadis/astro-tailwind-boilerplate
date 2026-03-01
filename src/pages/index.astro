@@ -1,167 +1,132 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { logComponentLifecycle } from '../lib/logger';
-import { Button, Card, CardHeader, CardTitle, CardDescription, CardContent, Badge } from '../components/ui';
-
-// Log page component lifecycle
-logComponentLifecycle('HomePage', 'render', {
-  pathname: Astro.url.pathname,
-});
 ---
 
-<Layout title='Astro Tailwind Boilerplate'>
+<Layout title="Clean Space - Premium UI Boilerplate">
   <!-- Hero Section -->
-  <section class='min-h-screen flex items-center justify-center bg-gradient-to-br from-white via-slate-50 to-blue-50/30' data-testid='home-hero'>
-    <div class='absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(59,130,246,0.08),transparent_50%)]'></div>
-    <div class='absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,rgba(147,51,234,0.05),transparent_50%)]'></div>
-    
-    <div class='container-custom relative z-10 text-center px-32'>
-      <!-- Hero Content -->
-      <div class='max-w-4xl mx-auto space-y-8' data-testid='home-hero-content'>
-        <div class='space-y-6'>
-          <h1 class='text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-gray-900 leading-tight' data-testid='home-hero-title'>
-            <span class='block'>Astro Tailwind</span>
-            <span class='block bg-gradient-to-r from-primary-600 to-blue-600 bg-clip-text text-transparent'>Boilerplate</span>
-          </h1>
-          <p class='text-lg sm:text-xl lg:text-2xl text-gray-600 font-light leading-relaxed max-w-2xl mx-auto' data-testid='home-hero-description'>
-            Production-ready Astro + Tailwind CSS boilerplate with <span class='font-semibold'>TypeScript</span>, <span class='font-semibold'>ESLint</span>, <span class='font-semibold'>Prettier</span>, <span class='font-semibold'>Playwright</span>, and <span class='font-semibold'>SEO optimization</span>.
-          </p>
-        </div>
-        
-        <!-- CTA Buttons -->
-        <div class='flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center pt-4' data-testid='home-hero-cta'>
-          <Button
-            as="a"
-            href='/contact'
-            data-testid='home-cta-get-started'
-            variant='default'
-            size='lg'
-            class='group px-8 py-4 text-lg font-semibold'
-          >
-            Get Started
-            <svg class='inline-block ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-              <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M17 8l4 4m0 0l-4 4m4-4H3'></path>
-            </svg>
-          </Button>
-          <Button
-            as="a"
-            href='https://github.com'
-            data-testid='home-cta-github'
-            variant='outline'
-            size='lg'
-            class='group px-8 py-4 text-lg font-semibold'
-          >
-            <svg class='inline-block mr-2 w-5 h-5' fill='currentColor' viewBox='0 0 24 24' aria-hidden='true'>
-              <path fill-rule='evenodd' d='M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z' clip-rule='evenodd'></path>
-            </svg>
-            View on GitHub
-          </Button>
-        </div>
+  <section class="relative pt-32 pb-20 sm:pt-40 sm:pb-24 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sm text-zinc-300 mb-8 backdrop-blur-md">
+        <span class="w-2 h-2 rounded-full bg-violet-500 animate-pulse"></span>
+        v2.0 Boilerplate
+      </div>
+      
+      <h1 class="text-5xl sm:text-7xl font-bold tracking-tight text-white mb-6">
+        Minimum <br class="hidden sm:block" />
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-indigo-500">
+          Viable Premium.
+        </span>
+      </h1>
+      
+      <p class="mt-6 text-lg sm:text-xl text-zinc-400 max-w-2xl mx-auto font-light leading-relaxed">
+        A relentlessly clean, beautifully crafted starting point for your next Astro project. Stop fighting the defaults and start creating.
+      </p>
 
-        <!-- Hero Image (placeholder for tests) -->
-        <div class='mt-12' data-testid='home-hero-image'>
-          <div class='w-32 h-32 mx-auto bg-gradient-to-br from-primary-500 to-blue-600 rounded-2xl shadow-xl flex items-center justify-center'>
-            <svg class='w-16 h-16 text-white' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-              <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M13 10V3L4 14h7v7l9-11h-7z'></path>
-            </svg>
-          </div>
-        </div>
+      <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="/docs" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white text-zinc-950 font-semibold shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] hover:scale-105 transition-all duration-300">
+          Start Building
+        </a>
+        <a href="https://github.com/bpolitiadis/astro-leadwave-boilerplate" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white/5 text-white border border-white/10 backdrop-blur-md hover:bg-white/10 transition-all duration-300 flex items-center justify-center gap-2">
+          <span>View Source</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+          </svg>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- Features Section -->
-  <section class='section-padding bg-gray-50/50' data-testid='home-features'>
-    <div class='container-custom px-32 py-32'>
-      <div class='text-center mb-16'>
-        <h2 class='text-3xl sm:text-4xl font-bold text-gray-900 mb-4' data-testid='home-features-title'>Built with Modern Components</h2>
-        <p class='text-lg text-gray-600 max-w-2xl mx-auto' data-testid='home-features-description'>Experience the power of shadcn/ui components integrated with Astro and Tailwind CSS</p>
-      </div>
+  <!-- Bento Grid Showcase Section -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-6">
       
-      <div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8' data-testid='home-features-grid'>
-        <Card class='text-center' data-testid='home-feature-card-performance'>
-          <CardHeader>
-            <div class='mx-auto w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4'>
-              <svg class='w-6 h-6 text-primary' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M13 10V3L4 14h7v7l9-11h-7z' />
-              </svg>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(300px,auto)]">
+        
+        <!-- Large Card: Main Dashboard Preview -->
+        <div class="md:col-span-2 md:row-span-2 rounded-3xl bg-zinc-900/40 border border-white/5 overflow-hidden flex flex-col relative group backdrop-blur-md">
+          <div class="absolute inset-0 bg-gradient-to-br from-violet-500/5 to-transparent pointer-events-none"></div>
+          <div class="p-8 flex-grow flex flex-col justify-end">
+            <div class="space-y-4">
+              <div class="h-10 w-10 rounded-xl bg-violet-500/20 text-violet-400 flex items-center justify-center border border-violet-500/30">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+              </div>
+              <h3 class="text-2xl font-semibold text-zinc-100">Revenue Metrics</h3>
+              <p class="text-zinc-400 max-w-sm">A placeholder for data visualization or a massive feature highlight.</p>
             </div>
-            <CardTitle>Lightning Fast</CardTitle>
-            <CardDescription>Built with Astro for optimal performance and SEO</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div class='flex flex-wrap gap-2 justify-center'>
-              <Badge variant='secondary'>Astro</Badge>
-              <Badge variant='outline'>TypeScript</Badge>
-            </div>
-          </CardContent>
-        </Card>
+          </div>
+          <!-- Abstract "Chart" element -->
+          <div class="h-48 w-full mt-4 flex items-end px-8 gap-3 opacity-60 group-hover:opacity-100 transition-opacity duration-500">
+            <div class="w-full bg-violet-600/20 hover:bg-violet-500/40 transition-colors border-t border-violet-500/30 rounded-t-sm h-[40%]"></div>
+            <div class="w-full bg-violet-600/20 hover:bg-violet-500/40 transition-colors border-t border-violet-500/30 rounded-t-sm h-[60%]"></div>
+            <div class="w-full bg-violet-600/20 hover:bg-violet-500/40 transition-colors border-t border-violet-500/30 rounded-t-sm h-[30%]"></div>
+            <div class="w-full bg-violet-600/20 hover:bg-violet-500/40 transition-colors border-t border-violet-500/30 rounded-t-sm h-[80%]"></div>
+            <div class="w-full bg-violet-600/40 hover:bg-violet-500/60 transition-colors border-t border-violet-400/50 rounded-t-sm h-[100%] shadow-[0_0_20px_rgba(139,92,246,0.3)]"></div>
+          </div>
+        </div>
 
-        <Card class='text-center' data-testid='home-feature-card-design'>
-          <CardHeader>
-            <div class='mx-auto w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4'>
-              <svg class='w-6 h-6 text-primary' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z' />
-              </svg>
+        <!-- Medium Card: Activity -->
+        <div class="rounded-3xl bg-zinc-900/40 border border-white/5 p-8 flex flex-col justify-between backdrop-blur-md hover:bg-zinc-900/60 transition-colors">
+          <div class="h-10 w-10 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center border border-indigo-500/30 mb-6">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold text-zinc-100 mb-2">Real-time Activity</h3>
+            <p class="text-sm text-zinc-400">Perfect spot for quick stats or recent notifications.</p>
+          </div>
+          <!-- Mock list -->
+          <div class="mt-6 space-y-4">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-zinc-800 border border-white/10 flex items-center justify-center text-xs text-zinc-400">JD</div>
+                <div class="h-4 w-24 bg-white/5 rounded"></div>
+              </div>
+              <div class="h-4 w-12 bg-white/5 rounded"></div>
             </div>
-            <CardTitle>Beautiful UI</CardTitle>
-            <CardDescription>shadcn/ui components with Tailwind CSS for stunning designs</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div class='flex flex-wrap gap-2 justify-center'>
-              <Badge variant='secondary'>shadcn/ui</Badge>
-              <Badge variant='outline'>Tailwind CSS</Badge>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-zinc-800 border border-white/10 flex items-center justify-center text-xs text-zinc-400">AS</div>
+                <div class="h-4 w-20 bg-white/5 rounded"></div>
+              </div>
+              <div class="h-4 w-10 bg-white/5 rounded"></div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
-        <Card class='text-center' data-testid='home-feature-card-typescript'>
-          <CardHeader>
-            <div class='mx-auto w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4'>
-              <svg class='w-6 h-6 text-primary' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' />
-              </svg>
+        <!-- Medium Card: Integration -->
+        <div class="rounded-3xl bg-zinc-900/40 border border-white/5 p-8 relative overflow-hidden backdrop-blur-md group">
+          <div class="absolute -right-10 -top-10 w-40 h-40 bg-fuchsia-500/10 blur-[50px] rounded-full group-hover:bg-fuchsia-500/20 transition-colors"></div>
+          <div class="relative z-10 flex flex-col h-full justify-between">
+            <div class="h-10 w-10 rounded-xl bg-fuchsia-500/20 text-fuchsia-400 flex items-center justify-center border border-fuchsia-500/30 mb-6">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
             </div>
-            <CardTitle>Production Ready</CardTitle>
-            <CardDescription>Includes testing, linting, and deployment configurations</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div class='flex flex-wrap gap-2 justify-center'>
-              <Badge variant='secondary'>Playwright</Badge>
-              <Badge variant='outline'>ESLint</Badge>
+            <div>
+              <h3 class="text-xl font-semibold text-zinc-100 mb-2">Developer First</h3>
+              <p class="text-sm text-zinc-400">Tailwind configured, Astro optimized. Ready for your logic.</p>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
+        
+        <!-- Wide Card: Component Library -->
+        <div class="md:col-span-3 rounded-3xl bg-zinc-900/40 border border-white/5 p-8 flex flex-col md:flex-row items-center gap-8 backdrop-blur-md">
+           <div class="flex-1">
+             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-zinc-300 mb-4">
+               Ready to use
+             </div>
+             <h3 class="text-2xl font-semibold text-zinc-100 mb-3">Copy. Paste. Ship.</h3>
+             <p class="text-zinc-400">Grab these beautifully styled, accessible components directly into your application without breaking a sweat.</p>
+           </div>
+           <div class="flex-1 w-full bg-black/20 rounded-2xl border border-white/5 p-6 flex flex-wrap gap-4 items-center justify-center">
+             <button class="px-4 py-2 bg-white text-black text-sm font-medium rounded-md hover:bg-zinc-200 transition-colors">Primary</button>
+             <button class="px-4 py-2 bg-white/10 border border-white/10 text-white text-sm font-medium rounded-md hover:bg-white/20 transition-colors">Secondary</button>
+             <div class="flex items-center gap-2 px-4 py-2 border border-white/10 rounded-md bg-black/40 text-sm text-zinc-400 w-full sm:w-auto mt-2 sm:mt-0">
+               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+               <span class="opacity-50">Search everything...</span>
+               <kbd class="ml-4 font-sans px-1.5 py-0.5 rounded-sm bg-white/10 text-[10px]">&uarr; K</kbd>
+             </div>
+           </div>
+        </div>
+
       </div>
     </div>
   </section>
 </Layout>
-
-<script>
-  // Client-side logging for home page interactions
-  import { logComponentLifecycle } from '../lib/logger';
-
-  // Log when home page becomes interactive
-  logComponentLifecycle('HomePage', 'interactive', {
-    pathname: window.location.pathname,
-  });
-
-  // Track button clicks
-  document.querySelectorAll('a[href="/contact"]').forEach(link => {
-    link.addEventListener('click', () => {
-      logComponentLifecycle('HomePage', 'cta_click', {
-        action: 'contact_form',
-        location: 'hero_section',
-      });
-    });
-  });
-
-  document.querySelectorAll('a[href*="github"]').forEach(link => {
-    link.addEventListener('click', () => {
-      logComponentLifecycle('HomePage', 'external_link_click', {
-        destination: 'github',
-        location: 'hero_section',
-      });
-    });
-  });
-</script>
