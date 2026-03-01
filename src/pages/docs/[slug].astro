@@ -1,0 +1,65 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import fs from 'fs';
+import path from 'path';
+
+export async function getStaticPaths() {
+  const docsDir = path.resolve('./docs');
+  const files = fs.readdirSync(docsDir).filter(file => file.endsWith('.md'));
+  
+  return files.map(file => {
+    const slug = file.replace('.md', '');
+    const content = fs.readFileSync(path.join(docsDir, file), 'utf-8');
+    
+    // basic markdown to html conversion using regex since we don't have a markdown parser available directly inside Astro without setup, 
+    // but better to just use Astro.glob() to render components.
+    
+    return {
+      params: { slug },
+      props: { file, content }
+    };
+  });
+}
+
+// In Astro, to safely render markdown without full content collections config, 
+// we will use the <Fragment set:html /> with marked or similar, or better:
+// let's grab the compiled Astro component using Astro.glob inside the page.
+
+const { slug } = Astro.params;
+const { file } = Astro.props;
+
+// Load the specific document
+const allDocs = await Astro.glob('../../../docs/*.md');
+const doc = allDocs.find(d => d.file.endsWith(file));
+
+if (!doc) {
+  return Astro.redirect('/404');
+}
+
+const DocContent = doc.Content;
+
+function getTitleFromFilename(filename: string) {
+  const name = filename.replace('.md', '');
+  return name.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+}
+
+const title = getTitleFromFilename(file);
+---
+
+<Layout title={`${title} - Documentation`}>
+  <section class="pt-32 pb-20 relative min-h-screen">
+    <div class="max-w-3xl mx-auto px-6 relative z-10">
+      <div class="mb-8">
+        <a href="/docs" class="text-sm text-violet-400 hover:text-violet-300 transition-colors inline-flex items-center gap-2 mb-6 cursor-pointer">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
+          Back to Docs
+        </a>
+        <h1 class="text-3xl md:text-5xl font-bold tracking-tight text-white mb-4">{title}</h1>
+      </div>
+
+      <article class="prose prose-invert prose-violet max-w-none prose-headings:font-bold prose-a:text-violet-400 prose-p:text-zinc-300 prose-li:text-zinc-300 bg-zinc-900/40 p-8 rounded-3xl border border-white/5 backdrop-blur-md">
+        <DocContent />
+      </article>
+    </div>
+  </section>
+</Layout>

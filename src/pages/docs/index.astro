@@ -1,0 +1,49 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+// Import all markdown files from the docs directory
+const docs = await Astro.glob('../../../docs/*.md');
+
+// Format names
+function getTitleFromFilename(file: string) {
+  const name = file.split('/').pop()?.replace('.md', '') || '';
+  return name.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+}
+
+// Generate the list
+const docList = docs.map(doc => {
+  const slug = doc.file.split('/').pop()?.replace('.md', '');
+  return {
+    title: getTitleFromFilename(doc.file),
+    url: `/docs/${slug}`,
+    excerpt: doc.rawContent ? doc.rawContent().substring(0, 100) + '...' : 'Documentation document.'
+  };
+});
+---
+
+<Layout title="Documentation - Clean Space Boilerplate">
+  <section class="pt-32 pb-20 relative min-h-screen">
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      <div class="mb-12 border-b border-white/10 pb-8">
+        <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">Documentation</h1>
+        <p class="text-lg text-zinc-400 max-w-2xl font-light">
+          Everything you need to know about the Clean Space Boilerplate, directly from our docs folder.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {docList.map(doc => (
+          <a href={doc.url} class="group rounded-2xl border border-white/5 bg-zinc-900/40 p-6 flex flex-col justify-between backdrop-blur-md hover:bg-zinc-900/60 hover:border-violet-500/30 transition-all duration-300">
+            <div>
+              <h2 class="text-lg font-semibold text-zinc-100 mb-2 group-hover:text-violet-400 transition-colors flex items-center justify-between">
+                {doc.title}
+                <svg class="w-4 h-4 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+              </h2>
+              <p class="text-sm text-zinc-400 line-clamp-2">{doc.excerpt}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
