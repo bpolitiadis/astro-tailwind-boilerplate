@@ -1,124 +1,46 @@
 ---
-import { logPageView, logComponentLifecycle } from '../lib/logger';
-import { generateLocalBusinessSchema, generateWebSiteSchema, generateWebPageSchema, generateSchemaScripts } from '../lib/schema';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import ConsentBanner from '../components/ConsentBanner.astro';
-import SkipLinks from '../components/SkipLinks.astro';
-import boilerplateImage6 from '../assets/images/boilerplate-image-6.png';
+import '../styles/global.css';
 
 export interface Props {
   title: string;
   description?: string;
-  image?: string;
-  canonical?: string;
-  noindex?: boolean;
 }
 
 const {
-  title,
-  description = 'Production-ready Astro + Tailwind CSS boilerplate with TypeScript, ESLint, Prettier, Playwright, and SEO optimization',
-  image,
-  canonical,
-  noindex = false,
+  title = "Clean Space - Premium UI Boilerplate",
+  description = "A sophisticated, minimalistic Astro and Tailwind CSS boilerplate.",
 } = Astro.props;
-
-// Use the optimized image if provided, otherwise use our default
-const ogImage = image || boilerplateImage6.src;
-const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site);
-
-
-// Generate structured data schemas
-const localBusinessSchema = generateLocalBusinessSchema();
-const websiteSchema = generateWebSiteSchema();
-const webpageSchema = generateWebPageSchema(title, description, canonicalUrl.toString());
-const schemaScripts = generateSchemaScripts([
-  localBusinessSchema as unknown as Record<string, unknown>, 
-  websiteSchema, 
-  webpageSchema
-]);
-
-// Log page view and component lifecycle
-logPageView(Astro.url.pathname);
-logComponentLifecycle('Layout', 'render', {
-  title,
-  pathname: Astro.url.pathname,
-});
 ---
 
 <!doctype html>
-<html lang='en'>
+<html lang="en" class="dark scroll-smooth">
   <head>
-    <meta charset='UTF-8' />
-    <meta name='description' content={description} />
-    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
-    <meta name='generator' content={Astro.generator} />
-    
-    
-    <!-- Canonical URL -->
-    <link rel='canonical' href={canonicalUrl} />
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
     
     <!-- SEO Meta Tags -->
     <title>{title}</title>
-    {noindex && <meta name='robots' content='noindex, nofollow' />}
     
-    <!-- Open Graph Meta Tags -->
-    <meta property='og:type' content='website' />
-    <meta property='og:title' content={title} />
-    <meta property='og:description' content={description} />
-    <meta property='og:image' content={new URL(ogImage, Astro.url)} />
-    <meta property='og:url' content={canonicalUrl} />
-    <meta property='og:site_name' content='Astro Tailwind Boilerplate' />
-    
-    <!-- Twitter Card Meta Tags -->
-    <meta name='twitter:card' content='summary_large_image' />
-    <meta name='twitter:title' content={title} />
-    <meta name='twitter:description' content={description} />
-    <meta name='twitter:image' content={new URL(ogImage, Astro.url)} />
-    
-    <!-- Performance hints -->
-    <link rel='dns-prefetch' href='//fonts.googleapis.com' />
-    <link rel='preconnect' href='//fonts.gstatic.com' crossorigin />
-    
-    <!-- Structured Data -->
-    <Fragment set:html={schemaScripts} />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   </head>
-  <body>
-    <SkipLinks />
-    <Header />
-    <main id="main-content">
-      <slot />
-    </main>
-    <Footer />
-    <ConsentBanner />
+  <body class="bg-zinc-950 text-zinc-50 font-sans antialiased selection:bg-violet-500/30 min-h-screen flex flex-col relative overflow-x-hidden">
+    <!-- Subtle Ambient Background Light -->
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] opacity-20 pointer-events-none blur-[120px] bg-violet-600/40 rounded-full z-0"></div>
     
-    <!-- Performance monitoring script -->
-    <script>
-      // Performance monitoring initialization
-      import { initPerformanceMonitoring, measurePerformance } from '../lib/performance';
-      import { initLazyLoading, measureImageLoading } from '../lib/images';
-      
-      // Initialize performance monitoring
-      initPerformanceMonitoring();
-      
-      // Initialize lazy loading
-      initLazyLoading();
-      
-      
-      // Measure image loading performance
-      measureImageLoading();
-      
-      // Measure page load performance
-      measurePerformance('page_load', () => {
-        return new Promise((resolve) => {
-          if (document.readyState === 'complete') {
-            resolve(true);
-          } else {
-            window.addEventListener('load', () => resolve(true));
-          }
-        });
-      });
-    </script>
+    <div class="relative z-10 flex flex-col min-h-screen">
+      <Header />
+      <main id="main-content" class="flex-grow">
+        <slot />
+      </main>
+      <Footer />
+    </div>
   </body>
 </html>
