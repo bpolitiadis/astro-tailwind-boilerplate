@@ -7,7 +7,7 @@ import prettier from 'eslint-config-prettier';
 
 export default [
   // Enable Astro linting for .astro files
-  astro.configs.recommended,
+  ...astro.configs.recommended,
   js.configs.recommended,
   {
     files: ['**/*.{js,ts}'],
@@ -20,11 +20,7 @@ export default [
           jsx: true,
         },
       },
-      env: {
-        browser: true,
-        es2022: true,
-        node: true,
-      },
+
       globals: {
         process: 'readonly',
         Response: 'readonly',
@@ -50,7 +46,7 @@ export default [
     },
   },
   {
-    ignores: ['.astro/**/*', 'dist/**/*', 'node_modules/**/*'],
+    ignores: ['.astro/**/*', 'dist/**/*', 'node_modules/**/*', 'dr-papageorgiou-website/**/*'],
   },
   prettier,
 ];
