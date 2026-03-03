@@ -10,7 +10,7 @@ export default [
   ...astro.configs.recommended,
   js.configs.recommended,
   {
-    files: ['**/*.{js,ts}'],
+    files: ['**/*.{js,mjs,ts}'],
     languageOptions: {
       parser: typescriptParser,
       parserOptions: {
@@ -46,7 +46,7 @@ export default [
     },
   },
   {
-    ignores: ['.astro/**/*', 'dist/**/*', 'node_modules/**/*', 'dr-papageorgiou-website/**/*'],
+    ignores: ['.astro/**/*', 'dist/**/*', 'node_modules/**/*'],
   },
   prettier,
 ];

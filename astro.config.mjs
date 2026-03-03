@@ -2,31 +2,41 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 
-// https://astro.build/config
+/**
+ * SITE URL — IMPORTANT FOR SEO
+ * ─────────────────────────────────────────────────────────────────────────────
+ * Set the SITE_URL environment variable in your deployment platform, or update
+ * the fallback below to your production domain.
+ *
+ * This value is used by Astro for:
+ *   • Canonical URL generation (prevents duplicate-content penalties)
+ *   • Sitemap base URL
+ *   • Open Graph URL meta tags
+ *
+ * It must also match `business.url` in src/config/site.config.ts.
+ */
+const SITE_URL = process.env.SITE_URL ?? 'https://your-domain.com'; // TODO: set your domain
+
 export default defineConfig({
-  // Site configuration for SEO and sitemap generation
-  site: 'https://your-domain.com',
-  
-  // Integrations
+  site: SITE_URL,
+
   integrations: [
-    tailwind()
+    tailwind(),
   ],
 
-  // Build configuration
   build: {
-    // Inline critical CSS for better performance
+    // Inline small stylesheets for faster first paint (reduces render-blocking CSS)
     inlineStylesheets: 'auto',
-    // Optimize assets
-    assets: '_astro'
+    // Output hashed asset filenames for long-term caching
+    assets: '_astro',
   },
 
-  // Image optimization
-  image: {
-    // Use default Sharp service
-  },
+  // Astro's built-in image optimisation service (powered by Sharp).
+  // Use <Image> from 'astro:assets' in your components — it auto-generates
+  // WebP/AVIF, correct srcset, and prevents layout shift via width/height.
+  image: {},
 
-  // Vite configuration for better performance
   vite: {
-    // Keep vite defaults minimal for a boilerplate; customize per project as needed
-  }
+    // Add Vite plugins here as your project grows (e.g. @vitejs/plugin-react)
+  },
 });
