@@ -25,7 +25,6 @@ export async function getStaticPaths() {
 // we will use the <Fragment set:html /> with marked or similar, or better:
 // let's grab the compiled Astro component using Astro.glob inside the page.
 
-const { slug } = Astro.params;
 const { file } = Astro.props;
 
 // Load the specific document

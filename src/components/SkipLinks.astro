@@ -1,28 +1,17 @@
 ---
-// Skip links for accessibility
-// These allow keyboard users to quickly navigate to main content
+// Accessibility skip links — allow keyboard users to jump past the header
+// directly to main content, navigation, or footer.
+// These are invisible until focused (Tab key), then slide into view.
 ---
 
 <div class="skip-links" data-testid="skip-links">
-  <a 
-    href="#main-content" 
-    class="skip-link"
-    data-testid="skip-to-main"
-  >
+  <a href="#main-content" class="skip-link" data-testid="skip-to-main">
     Skip to main content
   </a>
-  <a 
-    href="#navigation" 
-    class="skip-link"
-    data-testid="skip-to-nav"
-  >
+  <a href="#navigation" class="skip-link" data-testid="skip-to-nav">
     Skip to navigation
   </a>
-  <a 
-    href="#footer" 
-    class="skip-link"
-    data-testid="skip-to-footer"
-  >
+  <a href="#footer" class="skip-link" data-testid="skip-to-footer">
     Skip to footer
   </a>
 </div>
@@ -30,7 +19,7 @@
 <style>
   .skip-links {
     position: absolute;
-    top: -100px;
+    top: 0;
     left: 0;
     z-index: 1000;
   }
@@ -45,7 +34,7 @@
     text-decoration: none;
     font-weight: 600;
     border-radius: 0 0 4px 0;
-    transition: top 0.3s ease;
+    transition: top 0.2s ease;
     z-index: 1001;
   }
 
@@ -59,21 +48,3 @@
     background: #333;
   }
 </style>
-
-<script>
-  import { logComponentLifecycle } from '../lib/logger';
-
-  // Log component lifecycle
-  logComponentLifecycle('SkipLinks', 'interactive');
-
-  // Track skip link usage
-  document.querySelectorAll('.skip-link').forEach(link => {
-    link.addEventListener('click', (e) => {
-      const target = e.target as HTMLAnchorElement;
-      logComponentLifecycle('SkipLinks', 'skip_link_used', {
-        href: target.href,
-        text: target.textContent?.trim(),
-      });
-    });
-  });
-</script>
