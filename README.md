@@ -1,8 +1,8 @@
-# Dr. Papageorgiou Website
+# Astro Tailwind Boilerplate
 
-> Professional medical website built with modern web technologies
+> A modern, production-ready website boilerplate
 
-A production-ready website for Dr. Papageorgiou, built with Astro + Tailwind CSS, featuring TypeScript, comprehensive logging, and SEO optimization.
+A production-ready boilerplate built with Astro + Tailwind CSS, featuring TypeScript, comprehensive logging, and SEO optimization.
 
 ## 🚀 Features
 
