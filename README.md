@@ -1,365 +1,172 @@
-# Astro Tailwind Boilerplate
+# Astro + Tailwind Boilerplate
 
-> A modern, production-ready website boilerplate
+> A modern, production-ready starting point for Astro projects.
 
-A production-ready boilerplate built with Astro + Tailwind CSS, featuring TypeScript, comprehensive logging, and SEO optimization.
+Clean, minimal, and SEO-ready. Built to be customised — not wrestled with.
 
-## 🚀 Features
+## Tech Stack
 
-- **⚡ Fast Performance**: Built with Astro for optimal performance and SEO
-- **🎨 Modern Design**: Styled with Tailwind CSS for beautiful, responsive design
-- **🔒 Type Safe**: Full TypeScript support for better development experience
-- **📊 Comprehensive Logging**: Structured logging with Pino for production monitoring
-- **🔍 SEO Optimized**: Built-in SEO features with meta tags, Open Graph, and sitemap
-- **🧪 Testing Ready**: Playwright for end-to-end testing
-- **🚀 Production Ready**: Docker configuration and Vercel deployment ready
-- **♿ Accessible**: Built with accessibility in mind
+| Tool | Version | Purpose |
+|---|---|---|
+| [Astro](https://astro.build) | ^5.12 | Framework (SSG / SSR) |
+| [Tailwind CSS](https://tailwindcss.com) | ^3.4 | Utility-first styling |
+| [TypeScript](https://www.typescriptlang.org) | ^5.6 | Type safety |
+| [Pino](https://getpino.io) | ^9.7 | Structured logging (server-side / build) |
+| [Resend](https://resend.com) | ^4.8 | Transactional email (opt-in) |
+| [Playwright](https://playwright.dev) | ^1.54 | End-to-end testing |
+| [ESLint](https://eslint.org) | ^9.32 | Linting (flat config) |
+| [Prettier](https://prettier.io) | ^3.6 | Code formatting |
+| [Sharp](https://sharp.pixelplumbing.com) | ^0.33 | Image optimisation |
 
-## 🛠️ Tech Stack
+## Features
 
-- **Framework**: [Astro](https://astro.build) ^5.12.0
-- **Styling**: [Tailwind CSS](https://tailwindcss.com) ^3.4.17
-- **Language**: [TypeScript](https://www.typescriptlang.org) ^5.6.3
-- **Logging**: [Pino](https://getpino.io) ^9.7.0
-- **Email**: [Resend](https://resend.com) ^4.8.0
-- **Testing**: [Playwright](https://playwright.dev) ^1.54.2
-- **Linting**: [ESLint](https://eslint.org) ^9.32.0
-- **Formatting**: [Prettier](https://prettier.io) ^3.6.2
-- **Image Processing**: [Sharp](https://sharp.pixelplumbing.com) ^0.33.5
+- **Zero-config SEO**: canonical URLs, OG tags, Twitter Cards, and Schema.org structured data wired up out of the box
+- **Type-safe site config**: one file (`src/config/site.config.ts`) drives meta tags, schema, and the sitemap
+- **Production-grade styling**: Tailwind with CSS variable theming (light/dark), responsive layout utilities, and a shadcn-style component library
+- **Accessible by default**: skip links, semantic HTML, and `focus-visible` ring styles included
+- **Docker + Nginx**: multi-stage build with correct MPA routing and security headers
+- **Vercel-ready**: `vercel.json` with HSTS, CSP, asset caching, and function config
 
-## 📊 Logging System
-
-This boilerplate includes a comprehensive logging system built with Pino:
-
-### Features
-
-- **Structured Logging**: JSON-formatted logs for easy parsing
-- **Environment-Aware**: Different configurations for development and production
-- **Vercel Integration**: Optimized for Vercel's logging dashboard
-- **Context-Specific Loggers**: Specialized loggers for API, pages, components, and security
-- **Performance Tracking**: Built-in performance monitoring
-- **Privacy-First**: Automatic email masking and sensitive data protection
-
-### Log Categories
-
-- **API Logs**: Request/response tracking with performance metrics
-- **Page Views**: User navigation and page interaction tracking
-- **Component Lifecycle**: Component render and interaction events
-- **Email Events**: Email sending and delivery tracking
-- **Security Events**: Security-related incidents and anomalies
-- **Performance Metrics**: Operation timing and performance data
-
-### Usage Examples
-
-```typescript
-import { logger, apiLogger, logError, logPerformance, logSecurityEvent } from '../lib/logger';
-
-// Basic logging
-logger.info('Application started');
-
-// API logging
-apiLogger.info({
-  msg: 'API Request',
-  method: 'POST',
-  url: '/api/contact',
-  responseTime: 150,
-});
-
-// Error logging
-logError(new Error('Something went wrong'), {
-  context: 'user_action',
-  userId: '123',
-});
-
-// Performance tracking
-logPerformance('database_query', 45, {
-  table: 'users',
-  operation: 'select',
-});
-
-// Security events
-logSecurityEvent('failed_login', {
-  ip: '192.168.1.1',
-  userAgent: 'Mozilla/5.0...',
-});
-```
-
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
-- Node.js 18.0.0 or higher
-- pnpm 8.0.0 or higher
+- Node.js ≥ 20.0.0
+- pnpm ≥ 9.0.0
 
-### Installation
-
-1. Clone the repository:
+### Install
 
 ```bash
 git clone <repository-url>
 cd astro-tailwind-boilerplate
-```
-
-2. Install dependencies:
-
-```bash
 pnpm install
 ```
 
-3. Copy environment variables:
+### Configure
 
 ```bash
 cp env.example .env
 ```
 
-4. Configure your environment variables in `.env`:
+Open `.env` and add your values. Then open `src/config/site.config.ts` and fill in your business details — this is the most important file for SEO.
 
-```env
-# Email Configuration
-RESEND_API_KEY=your_resend_api_key_here
-FROM_EMAIL=noreply@yourdomain.com
-TO_EMAIL=hello@example.com
-
-# Logging Configuration
-LOG_LEVEL=info
-LOG_ENVIRONMENT=development
-ENABLE_STRUCTURED_LOGGING=true
-```
-
-### Development
-
-Start the development server:
+### Develop
 
 ```bash
-pnpm dev
+pnpm dev       # http://localhost:4321
+pnpm build     # type-check + production build
+pnpm preview   # serve the production build locally
 ```
 
-The application will be available at `http://localhost:4321`
+## Customising for a New Project
 
-### Use as a Template (Parameterization)
+Work through these files in order:
 
-When creating a new project from this boilerplate, customize:
+```
+1. src/config/site.config.ts   → business name, URL, contact, social links
+2. astro.config.mjs            → set SITE_URL env var (or update fallback)
+3. src/styles/global.css       → CSS variables for your colour palette
+4. tailwind.config.mjs         → extend theme with your brand tokens
+5. public/og-image.jpg         → your 1200×630 social share image
+6. public/favicon.svg          → your favicon
+7. src/pages/sitemap.xml.ts    → add your pages to the sitemap
+8. src/pages/index.astro       → replace placeholder content
+```
 
-- **Branding & Tokens**: Update theme colors, fonts, and tokens in `tailwind.config.mjs` and follow `docs/branding-ux-guidelines.md`.
-- **Content & Copy**: Replace example content in `src/pages/`, `src/components/`, and metadata in `src/layouts/`.
-- **Assets**: Swap logos and images in `public/` and `src/assets/images/`.
-- **Environment**: Duplicate `env.example` to `.env` and set real values.
-- **SEO**: Update titles/descriptions/Open Graph in pages and `sitemap`/`robots`.
-- **Integrations**: Adjust logger settings (`src/lib/logger.ts`), email config, and deploy target (`vercel.json`).
+See [docs/seo-checklist.md](docs/seo-checklist.md) for the full launch checklist.
 
-This template is intentionally minimal yet complete: keep what you need, delete the rest.
+## Project Structure
 
-### Building
+```
+src/
+├── components/
+│   ├── Header.astro
+│   ├── Footer.astro
+│   ├── SkipLinks.astro
+│   └── ui/               ← shadcn-style component library
+│       ├── Button.astro
+│       ├── Card.astro
+│       ├── Input.astro
+│       ├── Textarea.astro
+│       └── Badge.astro
+├── config/
+│   └── site.config.ts    ← single source of truth for all site metadata
+├── layouts/
+│   └── Layout.astro      ← base layout with full SEO <head>
+├── lib/
+│   ├── logger.ts         ← structured logging (Pino)
+│   └── schema.ts         ← Schema.org structured data helpers
+├── pages/
+│   ├── index.astro
+│   ├── 404.astro
+│   ├── sitemap.xml.ts
+│   ├── robots.txt.ts
+│   └── docs/             ← renders this /docs directory as a site
+└── styles/
+    └── global.css        ← Tailwind imports + CSS variables + component classes
+public/
+├── favicon.svg
+└── og-image.jpg          ← replace with your own
+tests/
+├── e2e/                  ← Playwright tests
+└── page-objects/         ← Page Object Models
+docs/                     ← developer documentation
+```
 
-Build for production:
+## Scripts
+
+| Command | Description |
+|---|---|
+| `pnpm dev` | Start development server (port 4321) |
+| `pnpm build` | Type-check then build for production |
+| `pnpm preview` | Preview the production build |
+| `pnpm lint` | Run ESLint |
+| `pnpm lint:fix` | Auto-fix ESLint errors |
+| `pnpm format` | Format with Prettier |
+| `pnpm type-check` | Run `astro check` (TypeScript + Astro) |
+| `pnpm test` | Run Playwright E2E tests |
+| `pnpm test:ui` | Run tests with Playwright UI |
+| `pnpm clean` | Delete `dist/` and `.astro/` |
+
+## Testing
 
 ```bash
-pnpm build
+pnpm install:playwright   # install browser binaries (first time)
+pnpm test                 # run all E2E tests
+pnpm test:headed          # watch tests run in the browser
+pnpm test:debug           # step through tests with Playwright inspector
 ```
 
-Preview the production build:
+## Deployment
+
+### Vercel (recommended for SSR / API routes)
+
+1. Push to GitHub
+2. Import the repo in [vercel.com](https://vercel.com)
+3. Set the `SITE_URL` environment variable to your production domain
+4. Set any other env vars from `.env.example`
+5. Deploy — Vercel picks up `vercel.json` automatically
+
+### Docker (recommended for self-hosted / static output)
 
 ```bash
-pnpm preview
+docker build -t my-site .
+docker run -p 80:80 my-site
 ```
 
-## 🧪 Testing
+The multi-stage Dockerfile outputs a static build served by Nginx with full security headers and correct MPA routing.
 
-Run all tests:
+## Documentation
 
-```bash
-pnpm test
-```
+- [SEO Checklist](docs/seo-checklist.md) — start here before going live
+- [Architecture](docs/architecture.md) — tech stack and component patterns
+- [Content Guide](docs/content-guide.md) — adding pages, components, and assets
+- [Tailwind Guide](docs/tailwind.md) — theme customisation
+- [Deployment](docs/deployment.md) — Vercel and Docker guides
+- [Quality](docs/quality.md) — linting, formatting, and testing
+- [Logging](docs/logging.md) — structured logging with Pino
+- [Troubleshooting](docs/troubleshooting.md) — common issues and fixes
 
-Run tests with UI:
+## License
 
-```bash
-pnpm test:ui
-```
-
-Run tests in headed mode:
-
-```bash
-pnpm test:headed
-```
-
-Run tests in debug mode:
-
-```bash
-pnpm test:debug
-```
-
-Run email tests (requires Resend API key):
-
-```bash
-pnpm test:email
-```
-
-Run tests without email functionality:
-
-```bash
-pnpm test:no-email
-```
-
-Install Playwright browsers:
-
-```bash
-pnpm install:playwright
-```
-
-## 📝 Scripts
-
-- `pnpm dev` - Start development server
-- `pnpm start` - Start development server (alias)
-- `pnpm build` - Build for production
-- `pnpm preview` - Preview production build
-- `pnpm lint` - Run ESLint
-- `pnpm lint:fix` - Fix ESLint errors
-- `pnpm format` - Format code with Prettier
-- `pnpm format:check` - Check formatting
-- `pnpm type-check` - Run TypeScript type checking
-- `pnpm test` - Run Playwright tests
-- `pnpm clean` - Clean build artifacts
-
-## 🚀 Deployment
-
-### Vercel (Recommended)
-
-1. Push your code to GitHub
-2. Connect your repository to Vercel
-3. Set environment variables in Vercel dashboard
-4. Deploy!
-
-The boilerplate is optimized for Vercel with:
-
-- Automatic function optimization
-- Structured logging integration
-- Performance monitoring
-- Security headers
-
-### Docker
-
-Build the Docker image:
-
-```bash
-docker build -t astro-tailwind-boilerplate .
-```
-
-Run the container:
-
-```bash
-docker run -p 4321:4321 astro-tailwind-boilerplate
-```
-
-## 📊 Monitoring & Logs
-
-### Vercel Dashboard
-
-- View real-time logs in the Vercel dashboard
-- Monitor function performance and errors
-- Track API request/response metrics
-
-### Local Development
-
-- Pretty-printed logs in development
-- JSON-structured logs in production
-- Performance metrics and timing data
-
-### Log Levels
-
-- `trace` - Detailed debugging information
-- `debug` - Debug information
-- `info` - General information
-- `warn` - Warning messages
-- `error` - Error messages
-- `fatal` - Fatal errors
-
-## 🔧 Configuration
-
-### Logging Configuration
-
-The logging system can be configured through environment variables:
-
-```env
-LOG_LEVEL=info                    # Log level (trace, debug, info, warn, error, fatal)
-LOG_ENVIRONMENT=development       # Environment (development, production, vercel)
-ENABLE_STRUCTURED_LOGGING=true   # Enable structured JSON logging
-```
-
-### Tailwind Configuration
-
-Customize Tailwind CSS in `tailwind.config.mjs`:
-
-```javascript
-export default {
-  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
-  theme: {
-    extend: {
-      // Your custom theme extensions
-    },
-  },
-  plugins: [],
-};
-```
-
-## 📁 Project Structure
-
-```
-astro-tailwind-boilerplate/
-├── src/
-│   ├── components/          # Reusable components
-│   │   ├── ui/             # UI component library
-│   │   ├── Header.astro    # Site header
-│   │   ├── Footer.astro    # Site footer
-│   │   └── ContactForm.astro # Contact form component
-│   ├── layouts/            # Page layouts
-│   │   └── Layout.astro    # Main layout with SEO
-│   ├── lib/                # Utility libraries (including logger)
-│   ├── pages/              # Pages and API routes
-│   │   ├── api/            # API endpoints
-│   │   │   └── contact.ts  # Contact form API
-│   │   ├── index.astro     # Homepage
-│   │   ├── contact.astro   # Contact page
-│   │   ├── components.astro # Components showcase
-│   │   ├── robots.txt.ts   # Dynamic robots.txt
-│   │   └── sitemap.xml.ts  # Dynamic sitemap
-│   ├── assets/             # Static assets
-│   │   └── images/         # Image files
-│   └── styles/             # Global styles
-├── public/                 # Public static assets
-├── tests/                  # End-to-end tests
-│   ├── e2e/               # Playwright tests
-│   ├── fixtures/          # Test data
-│   └── page-objects/      # Page object models
-├── docs/                   # Documentation
-└── vercel.json            # Vercel configuration
-```
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Run the test suite
-6. Submit a pull request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🆘 Support
-
-If you encounter any issues or have questions:
-
-1. Check the [documentation](docs/)
-2. Search existing [issues](../../issues)
-3. Create a new issue with detailed information
-
-## 🙏 Acknowledgments
-
-- [Astro](https://astro.build) for the amazing framework
-- [Tailwind CSS](https://tailwindcss.com) for the utility-first CSS framework
-- [Pino](https://getpino.io) for the excellent logging library
-- [Vercel](https://vercel.com) for the deployment platform
-- [Playwright](https://playwright.dev) for end-to-end testing
+MIT

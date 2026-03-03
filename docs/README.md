@@ -1,101 +1,56 @@
-# Astro Tailwind Boilerplate Documentation
+# Documentation
 
-> **Template/Boilerplate Notice**
->
-> This repository is a production-ready boilerplate template. It ships with working core functionality (Astro, Tailwind CSS, logging, testing, SEO, and deployment) so you can parameterize it (branding, copy, tokens, config) and start building immediately.
+Reference guides for this boilerplate. Start with the SEO checklist if you're launching a client project.
 
-## What This Boilerplate Is
+## Getting Started
 
-A production-ready Astro + Tailwind CSS boilerplate that provides a solid foundation for building modern web applications. It includes comprehensive logging with Pino, end-to-end testing with Playwright, SEO optimization, and deployment configurations for both Vercel and Docker.
+| Guide | Description |
+|---|---|
+| [Architecture](./architecture.md) | Tech stack, routing, component patterns, API routes |
+| [Content Guide](./content-guide.md) | How to add pages, components, images, and assets |
+| [Tailwind Guide](./tailwind.md) | Design tokens, theme customisation, utility patterns |
+| [Branding & UX](./branding-ux-guidelines.md) | Design system principles, colour, typography |
 
-## Key Features
+## SEO & Search
 
-- **⚡ Fast Performance**: Built with Astro for optimal performance and SEO
-- **🎨 Modern Design**: Styled with Tailwind CSS for beautiful, responsive design
-- **🔒 Type Safe**: Full TypeScript support for better development experience
-- **📊 Comprehensive Logging**: Structured logging with Pino for production monitoring
-- **🔍 SEO Optimized**: Built-in SEO features with meta tags, Open Graph, and sitemap
-- **🧪 Testing Ready**: Playwright for end-to-end testing
-- **🚀 Production Ready**: Docker configuration and Vercel deployment ready
-- **♿ Accessible**: Built with accessibility in mind
+| Guide | Description |
+|---|---|
+| **[SEO Checklist](./seo-checklist.md)** | Step-by-step setup — start here before going live |
+| [SEO Guide](./seo.md) | Strategy, meta tags, sitemap, robots.txt |
+| [Security Headers](./security-headers.md) | CSP, HSTS, and other HTTP security headers |
 
-## Quick Start
+## Quality & Testing
 
-### Prerequisites
-- Node.js 18.0.0 or higher
-- pnpm 8.0.0 or higher
+| Guide | Description |
+|---|---|
+| [Quality Guide](./quality.md) | ESLint, Prettier, TypeScript, Playwright |
+| [Test Naming](./test-naming-convention.md) | Playwright test naming conventions |
+| [Logging](./logging.md) | Pino logger usage and configuration |
 
-### Installation & Development
-```bash
-# Install dependencies
-pnpm install
+## Deployment
 
-# Start development server
-pnpm dev
+| Guide | Description |
+|---|---|
+| [Deployment Guide](./deployment.md) | Vercel and Docker deployment |
+| [Troubleshooting](./troubleshooting.md) | Common issues and fixes |
 
-# Build for production
-pnpm build
+## Contributing
 
-# Preview production build
-pnpm preview
-```
+| Guide | Description |
+|---|---|
+| [Contributing](./contributing.md) | Dev workflow, code style, PR process |
 
-### One-Click Deploy
-This boilerplate is optimized for Vercel deployment:
-1. Push your code to GitHub
-2. Connect your repository to Vercel
-3. Set environment variables in Vercel dashboard
-4. Deploy automatically on every push
+---
 
-## Project Structure
+## Quick Reference: Files to Change When Starting a Project
 
 ```
-src/
-├── components/          # Reusable UI components
-├── layouts/            # Page layouts with SEO
-├── lib/                # Logger and utilities
-├── pages/              # Pages and API routes
-├── images/             # Image assets
-├── assets/             # Static assets
-└── styles/             # Global CSS and Tailwind
+src/config/site.config.ts   ← #1: business name, URL, description, contact, social links
+astro.config.mjs            ← #2: set SITE_URL env var (or update fallback)
+src/styles/global.css       ← #3: CSS variables for your colour palette
+tailwind.config.mjs         ← #4: extend theme with your brand tokens
+public/og-image.jpg         ← #5: replace with your 1200×630 social share image
+public/favicon.svg          ← #6: replace with your favicon
+src/pages/sitemap.xml.ts    ← #7: add your pages to the sitemap
+src/layouts/Layout.astro    ← #8: update lang attribute, add hreflang if multilingual
 ```
-
-## Common Tasks
-
-### Add a Page
-1. Create a new `.astro` file in `src/pages/`
-2. Import and use the `Layout` component
-3. Add your content and styling
-
-### Add a Component
-1. Create a new `.astro` file in `src/components/`
-2. Export any props interface
-3. Import and use in your pages
-
-### Add Images/Assets
-- **Images**: Place in `src/images/` and import with `import Image from '../images/image.jpg'`
-- **Static files**: Place in `public/` and reference directly (e.g., `/favicon.svg`)
-
-### Test Email Functionality
-- **Run email test**: `pnpm test:email` (sends real email)
-- **Run without email**: `pnpm test:no-email` (skips email test)
-- **See [Email Testing Guide](./email-testing-guide.md)** for detailed instructions
-
-## Where to Go Next
-
-- **[Architecture Guide](./architecture.md)** - Tech stack, routing, and component patterns
-- **[SEO Guide](./seo.md)** - SEO strategy and content authoring
-- **[Tailwind Guide](./tailwind.md)** - Styling conventions and customization
-- **[Quality Guide](./quality.md)** - Testing, linting, and code quality
-- **[Deployment Guide](./deployment.md)** - Vercel and Docker deployment
-- **[Content Guide](./content-guide.md)** - Adding pages, components, and assets
-- **[Troubleshooting](./troubleshooting.md)** - Common issues and solutions
-- **[Branding & UX Guidelines](./branding-ux-guidelines.md)** - Design system and UX principles
-- **[Logging Guide](./logging.md)** - Comprehensive logging system and monitoring
-
-## Getting Help
-
-- Check the [troubleshooting guide](./troubleshooting.md) for common issues
-- Review the [architecture guide](./architecture.md) for technical details
-- Run `pnpm test` to verify everything is working
-- Check the [boilerplate review](./boilerplate-review.md) for gaps and recommendations
