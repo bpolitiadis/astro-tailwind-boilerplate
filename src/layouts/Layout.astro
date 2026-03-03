@@ -1,40 +1,137 @@
 ---
+/**
+ * Base Layout — wraps every page.
+ *
+ * SEO CHECKLIST FOR THIS FILE
+ * ─────────────────────────────────────────────────────────────────────────────
+ * ✅ <title> — unique per page; passed via `title` prop
+ * ✅ <meta description> — unique per page; passed via `description` prop
+ * ✅ Canonical URL — auto-derived from Astro.url to prevent duplicate content
+ * ✅ Open Graph — og:title, og:description, og:image, og:url for social sharing
+ * ✅ Twitter Card — summary_large_image for Twitter/X previews
+ * ✅ robots meta — noindex pages by passing `noindex={true}`
+ * ✅ lang attribute — set to siteConfig.languages[0]; update for multilingual sites
+ *
+ * TODO (before going live)
+ * ─────────────────────────────────────────────────────────────────────────────
+ * • Replace '/og-image.jpg' in /public/ with your real 1200×630 social image
+ * • Set the correct lang attribute if your site is not in English
+ * • Add hreflang <link> tags here if you support multiple locales
+ * • Add your favicon variants (apple-touch-icon, 32×32 PNG, etc.) to /public/
+ */
+
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
+import { siteConfig, getOgImage } from '../config/site.config';
 
 export interface Props {
+  /** Page-specific <title>. Best practice: 50–60 characters. */
   title: string;
+  /**
+   * Page-specific <meta description>. Best practice: 150–160 characters.
+   * If omitted, falls back to siteConfig.business.description.
+   */
   description?: string;
+  /**
+   * Override the OG/Twitter share image for this page.
+   * Must be an absolute URL or a root-relative path to a file in /public/.
+   * Recommended dimensions: 1200×630 px.
+   */
+  ogImage?: string;
+  /**
+   * Set to true on pages that should not appear in search results
+   * (e.g. /thank-you, /admin, staging pages).
+   */
+  noindex?: boolean;
 }
 
 const {
-  title = "Clean Space - Premium UI Boilerplate",
-  description = "A sophisticated, minimalistic Astro and Tailwind CSS boilerplate.",
+  title,
+  description = siteConfig.business.description,
+  ogImage = getOgImage(),
+  noindex = false,
 } = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, siteConfig.business.url).href;
+const resolvedOgImage = ogImage.startsWith('http')
+  ? ogImage
+  : new URL(ogImage, siteConfig.business.url).href;
+const pageTitle = `${title} | ${siteConfig.business.name}`;
 ---
 
 <!doctype html>
-<html lang="en" class="dark scroll-smooth">
+<html lang={siteConfig.languages[0] ?? 'en'} class="dark scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    
-    <!-- SEO Meta Tags -->
-    <title>{title}</title>
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- ── Primary SEO ──────────────────────────────────────────────────── -->
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <!-- ── Open Graph (Facebook, LinkedIn, Slack, etc.) ────────────────── -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={resolvedOgImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content={siteConfig.business.name} />
+
+    <!-- ── Twitter / X Card ─────────────────────────────────────────────── -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={resolvedOgImage} />
+    <!--
+      TODO: Add your Twitter/X handle if you have one:
+      <meta name="twitter:site" content="@yourhandle" />
+    -->
+
+    <!-- ── Icons ────────────────────────────────────────────────────────── -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!--
+      TODO: Add additional favicon formats for broader browser support:
+      <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+      <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+      <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+      <link rel="manifest" href="/site.webmanifest" />
+    -->
+
+    <!-- ── Fonts ────────────────────────────────────────────────────────── -->
+    <!--
+      Using Google Fonts CDN for Inter. Fast and zero-config for a boilerplate.
+
+      TODO (privacy / GDPR hardening): self-host the Inter variable font instead.
+      1. Download from https://rsms.me/inter/ or https://fonts.google.com/specimen/Inter
+      2. Place the .woff2 file(s) in /public/fonts/
+      3. Replace these tags with an @font-face in global.css and
+         a <link rel="preload"> tag here pointing to /fonts/inter.woff2
+
+      Google Fonts CDN leaks visitor IP addresses to Google — relevant if your
+      audience is in the EU and you need strict GDPR compliance.
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body class="bg-zinc-950 text-zinc-50 font-sans antialiased selection:bg-violet-500/30 min-h-screen flex flex-col relative overflow-x-hidden">
-    <!-- Subtle Ambient Background Light -->
-    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] opacity-20 pointer-events-none blur-[120px] bg-violet-600/40 rounded-full z-0"></div>
-    
+
+  <body
+    class="bg-zinc-950 text-zinc-50 font-sans antialiased selection:bg-violet-500/30 min-h-screen flex flex-col relative overflow-x-hidden"
+  >
+    <!-- Ambient background gradient — remove or customise for your brand -->
+    <div
+      class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] opacity-20 pointer-events-none blur-[120px] bg-violet-600/40 rounded-full z-0"
+    ></div>
+
     <div class="relative z-10 flex flex-col min-h-screen">
       <Header />
       <main id="main-content" class="flex-grow">
