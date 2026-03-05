@@ -3,6 +3,10 @@
   "type": "module",
   "version": "1.0.0",
   "description": "Production-ready Astro + Tailwind CSS boilerplate with TypeScript, ESLint, Prettier, Playwright, and SEO optimization",
+  "author": {
+    "name": "Vasileios Politeiadis",
+    "url": "https://vpoliteiadis.dev"
+  },
   "license": "MIT",
   "scripts": {
     "dev": "astro dev",

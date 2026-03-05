@@ -37,7 +37,7 @@ Clean, minimal, and SEO-ready. Built to be customised — not wrestled with.
 ### Install
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/bpolitiadis/astro-tailwind-boilerplate.git
 cd astro-tailwind-boilerplate
 pnpm install
 ```
@@ -166,6 +166,10 @@ The multi-stage Dockerfile outputs a static build served by Nginx with full secu
 - [Quality](docs/quality.md) — linting, formatting, and testing
 - [Logging](docs/logging.md) — structured logging with Pino
 - [Troubleshooting](docs/troubleshooting.md) — common issues and fixes
+
+## Author
+
+Built and maintained by **[Vasileios Politeiadis](https://vpoliteiadis.dev)** — [@bpolitiadis](https://github.com/bpolitiadis) on GitHub.
 
 ## License
 
