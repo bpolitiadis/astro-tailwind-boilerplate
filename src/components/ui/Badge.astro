@@ -1,4 +1,6 @@
 ---
+import { cn } from '@/lib/utils';
+
 export interface Props {
   variant?: 'default' | 'secondary' | 'destructive' | 'outline'
   class?: string
@@ -6,7 +8,7 @@ export interface Props {
 
 const {
   variant = 'default',
-  class: className = ''
+  class: className
 } = Astro.props
 
 const baseClasses = 'inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2'
@@ -18,7 +20,7 @@ const variants = {
   outline: 'border-input bg-background text-foreground hover:bg-accent hover:text-accent-foreground'
 }
 
-const classes = `${baseClasses} ${variants[variant]} ${className}`
+const classes = cn(baseClasses, variants[variant], className)
 ---
 
 <span class={classes}>

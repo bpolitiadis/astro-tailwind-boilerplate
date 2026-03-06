@@ -1,14 +1,61 @@
 ---
-export interface Props {
-  class?: string
-  [key: string]: any
-}
+/**
+ * Card — a surface container with optional header and footer regions.
+ *
+ * Regions are rendered only when content is provided, so padding adjusts
+ * automatically: if no header is passed, the default slot gets full p-6.
+ *
+ * Usage:
+ *   <Card>
+ *     <Fragment slot="header">
+ *       <h3 class="text-2xl font-semibold leading-none tracking-tight">Title</h3>
+ *       <p class="text-sm text-muted-foreground">Subtitle</p>
+ *     </Fragment>
+ *
+ *     Main content here.
+ *
+ *     <div slot="footer" class="flex items-center gap-4">
+ *       Footer actions
+ *     </div>
+ *   </Card>
+ *
+ * Without slots:
+ *   <Card class="p-6">Custom fully-padded content</Card>
+ */
+import type { HTMLAttributes } from 'astro/types';
+import { cn } from '@/lib/utils';
 
-const { class: className = '', ...rest } = Astro.props
-const baseClasses = 'rounded-lg border border-gray-200 bg-white text-gray-900 shadow-sm'
-const classes = `${baseClasses} ${className}`
+export type Props = HTMLAttributes<'div'> & {
+  className?: string;
+};
+
+const { class: className, className: classNameProp, ...rest } = Astro.props as Props;
+
+const hasHeader = Astro.slots.has('header');
+const hasFooter = Astro.slots.has('footer');
 ---
 
-<div class={classes} {...rest}>
-  <slot />
+<div
+  class={cn(
+    'rounded-lg border border-border bg-card text-card-foreground shadow-sm',
+    className,
+    classNameProp
+  )}
+  {...rest}
+>
+  {hasHeader && (
+    <div class="flex flex-col space-y-1.5 p-6">
+      <slot name="header" />
+    </div>
+  )}
+
+  <div class={cn('p-6', hasHeader && 'pt-0')}>
+    <slot />
+  </div>
+
+  {hasFooter && (
+    <div class="flex items-center p-6 pt-0">
+      <slot name="footer" />
+    </div>
+  )}
 </div>

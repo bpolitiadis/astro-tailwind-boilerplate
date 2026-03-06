@@ -5,15 +5,15 @@ import Layout from '../layouts/Layout.astro';
 <Layout title="Clean Space - Premium UI Boilerplate">
   <!-- Hero Section -->
   <section class="relative pt-32 pb-20 sm:pt-40 sm:pb-24 overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
+    <div class="container-custom relative z-10 text-center">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sm text-zinc-300 mb-8 backdrop-blur-md">
-        <span class="w-2 h-2 rounded-full bg-violet-500 animate-pulse"></span>
+        <span class="w-2 h-2 rounded-full bg-brand-accent animate-pulse"></span>
         v2.0 Boilerplate
       </div>
       
       <h1 class="text-5xl sm:text-7xl font-bold tracking-tight text-white mb-6">
         Minimum <br class="hidden sm:block" />
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-indigo-500">
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-accent to-primary">
           Viable Premium.
         </span>
       </h1>
@@ -37,17 +37,17 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
   <!-- Bento Grid Showcase Section -->
-  <section class="py-20">
-    <div class="max-w-7xl mx-auto px-6">
+  <section class="section-padding">
+    <div class="container-custom">
       
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(300px,auto)]">
         
         <!-- Large Card: Main Dashboard Preview -->
         <div class="md:col-span-2 md:row-span-2 rounded-3xl bg-zinc-900/40 border border-white/5 overflow-hidden flex flex-col relative group backdrop-blur-md">
-          <div class="absolute inset-0 bg-gradient-to-br from-violet-500/5 to-transparent pointer-events-none"></div>
+          <div class="absolute inset-0 bg-gradient-to-br from-brand-accent/5 to-transparent pointer-events-none"></div>
           <div class="p-8 flex-grow flex flex-col justify-end">
             <div class="space-y-4">
-              <div class="h-10 w-10 rounded-xl bg-violet-500/20 text-violet-400 flex items-center justify-center border border-violet-500/30">
+              <div class="h-10 w-10 rounded-xl bg-brand-accent/20 text-brand-accent flex items-center justify-center border border-brand-accent/30">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
               </div>
               <h3 class="text-2xl font-semibold text-zinc-100">Revenue Metrics</h3>
@@ -56,17 +56,17 @@ import Layout from '../layouts/Layout.astro';
           </div>
           <!-- Abstract "Chart" element -->
           <div class="h-48 w-full mt-4 flex items-end px-8 gap-3 opacity-60 group-hover:opacity-100 transition-opacity duration-500">
-            <div class="w-full bg-violet-600/20 hover:bg-violet-500/40 transition-colors border-t border-violet-500/30 rounded-t-sm h-[40%]"></div>
-            <div class="w-full bg-violet-600/20 hover:bg-violet-500/40 transition-colors border-t border-violet-500/30 rounded-t-sm h-[60%]"></div>
-            <div class="w-full bg-violet-600/20 hover:bg-violet-500/40 transition-colors border-t border-violet-500/30 rounded-t-sm h-[30%]"></div>
-            <div class="w-full bg-violet-600/20 hover:bg-violet-500/40 transition-colors border-t border-violet-500/30 rounded-t-sm h-[80%]"></div>
-            <div class="w-full bg-violet-600/40 hover:bg-violet-500/60 transition-colors border-t border-violet-400/50 rounded-t-sm h-[100%] shadow-[0_0_20px_rgba(139,92,246,0.3)]"></div>
+            <div class="w-full bg-brand-accent/20 hover:bg-brand-accent/40 transition-colors border-t border-brand-accent/30 rounded-t-sm h-[40%]"></div>
+            <div class="w-full bg-brand-accent/20 hover:bg-brand-accent/40 transition-colors border-t border-brand-accent/30 rounded-t-sm h-[60%]"></div>
+            <div class="w-full bg-brand-accent/20 hover:bg-brand-accent/40 transition-colors border-t border-brand-accent/30 rounded-t-sm h-[30%]"></div>
+            <div class="w-full bg-brand-accent/20 hover:bg-brand-accent/40 transition-colors border-t border-brand-accent/30 rounded-t-sm h-[80%]"></div>
+            <div class="w-full bg-brand-accent/40 hover:bg-brand-accent/60 transition-colors border-t border-brand-accent/50 rounded-t-sm h-[100%] shadow-[0_0_20px_hsl(var(--brand-accent)/0.3)]"></div>
           </div>
         </div>
 
         <!-- Medium Card: Activity -->
         <div class="rounded-3xl bg-zinc-900/40 border border-white/5 p-8 flex flex-col justify-between backdrop-blur-md hover:bg-zinc-900/60 transition-colors">
-          <div class="h-10 w-10 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center border border-indigo-500/30 mb-6">
+          <div class="h-10 w-10 rounded-xl bg-primary/20 text-primary flex items-center justify-center border border-primary/30 mb-6">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
           </div>
           <div>
@@ -94,9 +94,9 @@ import Layout from '../layouts/Layout.astro';
 
         <!-- Medium Card: Integration -->
         <div class="rounded-3xl bg-zinc-900/40 border border-white/5 p-8 relative overflow-hidden backdrop-blur-md group">
-          <div class="absolute -right-10 -top-10 w-40 h-40 bg-fuchsia-500/10 blur-[50px] rounded-full group-hover:bg-fuchsia-500/20 transition-colors"></div>
+          <div class="absolute -right-10 -top-10 w-40 h-40 bg-brand-accent/10 blur-[50px] rounded-full group-hover:bg-brand-accent/20 transition-colors"></div>
           <div class="relative z-10 flex flex-col h-full justify-between">
-            <div class="h-10 w-10 rounded-xl bg-fuchsia-500/20 text-fuchsia-400 flex items-center justify-center border border-fuchsia-500/30 mb-6">
+            <div class="h-10 w-10 rounded-xl bg-brand-accent/20 text-brand-accent flex items-center justify-center border border-brand-accent/30 mb-6">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
             </div>
             <div>

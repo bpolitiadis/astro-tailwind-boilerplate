@@ -49,14 +49,14 @@ const title = getTitleFromFilename(file);
   <section class="pt-32 pb-20 relative min-h-screen">
     <div class="max-w-3xl mx-auto px-6 relative z-10">
       <div class="mb-8">
-        <a href="/docs" class="text-sm text-violet-400 hover:text-violet-300 transition-colors inline-flex items-center gap-2 mb-6 cursor-pointer">
+        <a href="/docs" class="text-sm text-brand-accent hover:text-brand-accent/80 transition-colors inline-flex items-center gap-2 mb-6 cursor-pointer">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
           Back to Docs
         </a>
         <h1 class="text-3xl md:text-5xl font-bold tracking-tight text-white mb-4">{title}</h1>
       </div>
 
-      <article class="prose prose-invert prose-violet max-w-none prose-headings:font-bold prose-a:text-violet-400 prose-p:text-zinc-300 prose-li:text-zinc-300 bg-zinc-900/40 p-8 rounded-3xl border border-white/5 backdrop-blur-md">
+      <article class="prose prose-invert max-w-none prose-headings:font-bold prose-a:text-brand-accent prose-p:text-zinc-300 prose-li:text-zinc-300 bg-zinc-900/40 p-8 rounded-3xl border border-white/5 backdrop-blur-md">
         <DocContent />
       </article>
     </div>

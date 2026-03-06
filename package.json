@@ -27,9 +27,12 @@
   },
   "dependencies": {
     "astro": "^5.12.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "pino": "^9.7.0",
     "resend": "^4.8.0",
-    "sharp": "^0.33.5"
+    "sharp": "^0.33.5",
+    "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",

@@ -1,48 +1,59 @@
 /**
  * Boilerplate Template Notice
  * This Tailwind configuration is a starting point for parameterization.
- * Replace colors, fonts, spacing, and plugins with your brand system.
+ * Replace colors, fonts, and plugins with your brand system.
  * See docs/branding-ux-guidelines.md for guidance.
  * @type {import('tailwindcss').Config}
  */
+import typography from '@tailwindcss/typography';
+
 export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   theme: {
     extend: {
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
         primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))',
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))',
         },
         destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
+          DEFAULT: 'hsl(var(--destructive))',
+          foreground: 'hsl(var(--destructive-foreground))',
         },
         muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))',
         },
         accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))',
         },
         popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
+          DEFAULT: 'hsl(var(--popover))',
+          foreground: 'hsl(var(--popover-foreground))',
         },
         card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))',
         },
+        'brand-accent': {
+          DEFAULT: 'hsl(var(--brand-accent))',
+          foreground: 'hsl(var(--brand-accent-foreground))',
+        },
+      },
+      borderRadius: {
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)',
       },
       fontFamily: {
         sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
@@ -51,7 +62,7 @@ export default {
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',
         'slide-up': 'slideUp 0.3s ease-out',
-        'float': 'float 6s ease-in-out infinite',
+        float: 'float 6s ease-in-out infinite',
         'pulse-soft': 'pulseSoft 2s ease-in-out infinite',
       },
       keyframes: {
@@ -72,39 +83,15 @@ export default {
           '50%': { opacity: '0.4' },
         },
       },
-      spacing: {
-        '1': '0.25rem', /* 4px */
-        '2': '0.5rem', /* 8px */
-        '3': '0.75rem', /* 12px */
-        '4': '1rem', /* 16px */
-        '5': '1.25rem', /* 20px */
-        '6': '1.5rem', /* 24px */
-        '8': '2rem', /* 32px */
-        '10': '2.5rem', /* 40px */
-        '12': '3rem', /* 48px */
-        '16': '4rem', /* 64px */
-        '20': '5rem', /* 80px */
-        '24': '6rem', /* 96px */
-        '28': '7rem', /* 112px */
-        '32': '8rem', /* 128px */
-      },
-      borderRadius: {
-        'sm': '0.125rem', /* 2px */
-        'md': '0.375rem', /* 6px */
-        'lg': '0.5rem', /* 8px */
-        'xl': '0.75rem', /* 12px */
-        '2xl': '1rem', /* 16px */
-        '3xl': '1.5rem', /* 24px */
-      },
       boxShadow: {
-        'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
-        'glow': '0 0 20px rgba(59, 130, 246, 0.15)',
-        'glow-lg': '0 0 40px rgba(59, 130, 246, 0.2)',
+        soft: '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
+        glow: '0 0 20px hsl(var(--primary) / 0.15)',
+        'glow-lg': '0 0 40px hsl(var(--primary) / 0.2)',
       },
       backdropBlur: {
-        'xs': '2px',
+        xs: '2px',
       },
     },
   },
-  plugins: [],
+  plugins: [typography()],
 };
