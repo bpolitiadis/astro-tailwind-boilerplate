@@ -119,6 +119,25 @@ export interface LegalInfo {
   registrationNumber?: string;
 }
 
+export interface BookingConfig {
+  /** Enable Cal.com booking integration. When false, booking components are hidden. */
+  enabled: boolean;
+  /**
+   * Cal.com username or event link, e.g. 'yourcompany' or 'yourcompany/30min'.
+   * Get this from your Cal.com event type page or Embed Snippet Generator.
+   */
+  calUsername: string;
+  /** Default event type slug when embedding profile (optional). */
+  defaultEventType?: string;
+  /** Show floating booking button globally (bottom-right). */
+  floatingButton?: boolean;
+  /**
+   * Base URL for Cal.com embed script. Use for self-hosted instances.
+   * Default: 'https://cal.com'
+   */
+  embedBaseUrl?: string;
+}
+
 export interface SiteConfig {
   business: BusinessInfo;
   contact: ContactInfo;
@@ -134,6 +153,8 @@ export interface SiteConfig {
   languages: string[];
   /** ISO 4217 currency code, e.g. 'USD', 'EUR'. Used in Schema pricing. */
   currency?: string;
+  /** Optional Cal.com booking integration. See docs/calcom-setup.md. */
+  booking?: BookingConfig;
 }
 
 // ─── Configuration ────────────────────────────────────────────────────────────
@@ -196,6 +217,14 @@ export const siteConfig: SiteConfig = {
 
   languages: ['en'], // TODO: add more language codes if you support multiple locales
   currency: 'USD', // TODO: change to your primary currency
+
+  // Optional: Enable Cal.com booking. See docs/calcom-setup.md.
+  // booking: {
+  //   enabled: true,
+  //   calUsername: 'yourcompany',
+  //   defaultEventType: '30min',
+  //   floatingButton: true,
+  // },
 };
 
 // ─── Accessor helpers ─────────────────────────────────────────────────────────
@@ -210,6 +239,7 @@ export const getContactPhone = () => siteConfig.contact.phone ?? '';
 export const getSocialLinks = () => siteConfig.social;
 export const getBusinessHours = () => siteConfig.hours;
 export const getLegalInfo = () => siteConfig.legal;
+export const getBookingConfig = () => siteConfig.booking;
 
 export function getBusinessAddress(): string {
   const { address } = siteConfig.contact;

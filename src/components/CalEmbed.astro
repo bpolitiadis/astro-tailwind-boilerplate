@@ -1,0 +1,168 @@
+---
+/**
+ * CalEmbed — Cal.com booking embed component.
+ *
+ * Supports inline, popup, and floating button modes. Uses Cal.com's vanilla JS
+ * embed API. See docs/calcom-setup.md for configuration.
+ *
+ * @see https://cal.com/help/embedding/adding-embed
+ * @see https://cal.com/help/embedding/embed-instructions
+ */
+
+import { getBookingConfig } from '../config/site.config';
+
+export interface Props {
+  /**
+   * Embed mode: inline (in-page), popup (modal on click), or floatingButton.
+   * Default: inline
+   */
+  mode?: 'inline' | 'popup' | 'floatingButton';
+  /**
+   * Cal.com link: username (e.g. 'yourcompany') or event slug (e.g. 'yourcompany/30min').
+   * Falls back to siteConfig.booking.calUsername when not provided.
+   */
+  calLink?: string;
+  /**
+   * Unique ID for the container element (inline mode) or trigger button (popup mode).
+   * Default: 'cal-embed'
+   */
+  elementId?: string;
+  /**
+   * Prefill and UI config passed to Cal embed.
+   * @see https://cal.com/help/embedding/prefill-booking-form-embed
+   */
+  config?: {
+    name?: string;
+    email?: string;
+    /** Metadata keys, e.g. { 'metadata[source]': 'website' } */
+    [key: string]: string | undefined;
+  };
+  /**
+   * Override embed script base URL for self-hosted Cal.com instances.
+   */
+  embedBaseUrl?: string;
+  /**
+   * Button label for popup mode. Default: 'Book a call'
+   */
+  popupButtonLabel?: string;
+}
+
+const {
+  mode = 'inline',
+  calLink,
+  elementId = 'cal-embed',
+  config = {},
+  embedBaseUrl,
+  popupButtonLabel = 'Book a call',
+} = Astro.props;
+
+const bookingConfig = getBookingConfig();
+const resolvedCalLink = calLink ?? bookingConfig?.calUsername ?? 'cal';
+const baseUrl = embedBaseUrl ?? bookingConfig?.embedBaseUrl ?? 'https://cal.com';
+const embedScriptSrc = `${baseUrl.replace(/\/$/, '')}/embed/embed.js`;
+
+// Serialize config for inline script (avoid XSS — config comes from server)
+const configJson = JSON.stringify(config);
+---
+
+<!-- Cal.com embed script loader (loads once per page) -->
+<script is:inline define:vars={{ embedScriptSrc }}>
+  (function (C, A, L) {
+    if (C[L]) return; // Already loaded
+    C[L] = C[L] || function () {
+      (C[L].q = C[L].q || []).push(arguments);
+    };
+    const s = A.createElement('script');
+    s.async = true;
+    s.src = embedScriptSrc;
+    const h = A.getElementsByTagName('script')[0];
+    h.parentNode.insertBefore(s, h);
+  })(window, document, 'Cal');
+</script>
+
+{mode === 'inline' && (
+  <div id={elementId} class="cal-embed-container min-h-[600px] w-full" aria-label="Book a meeting">
+    <script is:inline define:vars={{ elementId, resolvedCalLink, configJson }}>
+      (function initInline() {
+        function run() {
+          if (typeof window.Cal !== 'function') {
+            setTimeout(run, 50);
+            return;
+          }
+          const config = configJson ? JSON.parse(configJson) : {};
+          window.Cal('inline', {
+            elementOrSelector: `#${elementId}`,
+            calLink: resolvedCalLink,
+            config: Object.keys(config).length ? config : undefined,
+          });
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', run);
+        } else {
+          run();
+        }
+      })();
+    </script>
+  </div>
+)}
+
+{mode === 'popup' && (
+  <button
+    type="button"
+    id={elementId}
+    class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 rounded-md shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background"
+    data-cal-link={resolvedCalLink}
+    aria-label={popupButtonLabel}
+  >
+    {popupButtonLabel}
+  </button>
+)}
+
+{mode === 'floatingButton' && (
+  <script is:inline define:vars={{ resolvedCalLink, configJson }}>
+    (function initFloating() {
+      function run() {
+        if (typeof window.Cal !== 'function') {
+          setTimeout(run, 50);
+          return;
+        }
+        const config = configJson ? JSON.parse(configJson) : {};
+        window.Cal('floatingButton', {
+          calLink: resolvedCalLink,
+          config: Object.keys(config).length ? config : undefined,
+        });
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', run);
+      } else {
+        run();
+      }
+    })();
+  </script>
+)}
+
+{mode === 'popup' && (
+  <script is:inline define:vars={{ elementId, resolvedCalLink, configJson }}>
+    (function initPopup() {
+      function run() {
+        if (typeof window.Cal !== 'function') {
+          setTimeout(run, 50);
+          return;
+        }
+        const el = document.getElementById(elementId);
+        if (!el) return;
+        const config = configJson ? JSON.parse(configJson) : {};
+        window.Cal('popup', {
+          elementOrSelector: `#${elementId}`,
+          calLink: resolvedCalLink,
+          config: Object.keys(config).length ? config : undefined,
+        });
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', run);
+      } else {
+        run();
+      }
+    })();
+  </script>
+)}

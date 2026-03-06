@@ -26,6 +26,7 @@ export const GET: APIRoute = ({ site }) => {
   const pages = [
     // TODO: Keep this list in sync with your actual routes in src/pages/
     { url: baseUrl, changefreq: 'weekly', priority: 1.0 },
+    { url: `${baseUrl}/book`, changefreq: 'monthly', priority: 0.8 },
     // { url: `${baseUrl}/about`,    changefreq: 'monthly', priority: 0.8 },
     // { url: `${baseUrl}/services`, changefreq: 'monthly', priority: 0.8 },
     // { url: `${baseUrl}/blog`,     changefreq: 'weekly',  priority: 0.8 },

@@ -22,6 +22,7 @@ Clean, minimal, and SEO-ready. Built to be customised — not wrestled with.
 
 - **Zero-config SEO**: canonical URLs, OG tags, Twitter Cards, and Schema.org structured data wired up out of the box
 - **Type-safe site config**: one file (`src/config/site.config.ts`) drives meta tags, schema, and the sitemap
+- **Optional Cal.com booking**: embed scheduling (inline, popup, floating button) — see [docs/calcom-setup.md](docs/calcom-setup.md)
 - **Production-grade styling**: Tailwind with CSS variable theming (light/dark), responsive layout utilities, and a shadcn-style component library
 - **Accessible by default**: skip links, semantic HTML, and `focus-visible` ring styles included
 - **Docker + Nginx**: multi-stage build with correct MPA routing and security headers

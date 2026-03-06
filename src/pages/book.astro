@@ -1,0 +1,45 @@
+---
+/**
+ * Booking page — Cal.com inline embed.
+ *
+ * Uses siteConfig.booking when enabled, or a demo Cal.com link for preview.
+ * Configure your Cal.com username in site.config.ts. See docs/calcom-setup.md.
+ */
+
+import Layout from '../layouts/Layout.astro';
+import CalEmbed from '../components/CalEmbed.astro';
+import { getBookingConfig } from '../config/site.config';
+
+const bookingConfig = getBookingConfig();
+const calLink = bookingConfig?.enabled ? bookingConfig.calUsername : 'cedric';
+---
+
+<Layout
+  title="Book a Meeting"
+  description="Schedule a call with us. Choose a time that works for you."
+>
+  <section class="section-padding">
+    <div class="container-custom max-w-4xl">
+      <div class="text-center mb-12">
+        <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-foreground mb-4">
+          Book a Meeting
+        </h1>
+        <p class="text-lg text-muted-foreground max-w-xl mx-auto">
+          Select a time below that works for you. You'll receive a confirmation with calendar invite.
+        </p>
+      </div>
+
+      <div class="rounded-2xl border border-border bg-card p-4 sm:p-6 shadow-sm">
+        <CalEmbed mode="inline" calLink={calLink} elementId="cal-booking" />
+      </div>
+
+      {!bookingConfig?.enabled && (
+        <p class="mt-6 text-sm text-muted-foreground text-center">
+          Using demo calendar. Enable and configure Cal.com in{' '}
+          <code class="px-1.5 py-0.5 rounded bg-muted text-foreground">site.config.ts</code>{' '}
+          — see <a href="/docs/calcom-setup" class="text-primary hover:underline">Cal.com setup guide</a>.
+        </p>
+      )}
+    </div>
+  </section>
+</Layout>

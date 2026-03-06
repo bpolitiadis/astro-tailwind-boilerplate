@@ -22,8 +22,11 @@
 
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import CalEmbed from '../components/CalEmbed.astro';
 import '../styles/global.css';
-import { siteConfig, getOgImage } from '../config/site.config';
+import { siteConfig, getOgImage, getBookingConfig } from '../config/site.config';
+
+const bookingConfig = getBookingConfig();
 
 export interface Props {
   /** Page-specific <title>. Best practice: 50–60 characters. */
@@ -139,5 +142,8 @@ const pageTitle = `${title} | ${siteConfig.business.name}`;
       </main>
       <Footer />
     </div>
+    {bookingConfig?.enabled && bookingConfig?.floatingButton && (
+      <CalEmbed mode="floatingButton" />
+    )}
   </body>
 </html>

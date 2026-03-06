@@ -1,10 +1,14 @@
 ---
+import { getBookingConfig } from '../config/site.config';
+
 const currentPath = Astro.url.pathname;
+const bookingConfig = getBookingConfig();
 
 const navLinks = [
   { href: '/', label: 'Showcase' },
   { href: '/components', label: 'Components' },
   { href: '/docs', label: 'Documentation' },
+  ...(bookingConfig?.enabled ? [{ href: '/book', label: 'Book a call' }] : []),
 ];
 
 function isActive(href: string) {
