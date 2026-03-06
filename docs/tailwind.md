@@ -347,6 +347,16 @@ theme: {
 }
 ```
 
+## Tailwind v4 (Future)
+
+Tailwind v4 (2024+) uses a CSS-first config and Rust-based engine with ~5x faster builds. Consider migrating when:
+
+- `npx @tailwindcss/upgrade` is run on a branch
+- Astro's `@astrojs/tailwind` supports v4
+- You need the performance gains
+
+Until then, v3.4 is stable and fully supported.
+
 ## Performance Considerations
 
 ### PurgeCSS Integration

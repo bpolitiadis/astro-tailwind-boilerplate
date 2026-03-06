@@ -1,108 +1,88 @@
-# shadcn/ui Setup Guide
+# shadcn-style UI Setup Guide
 
-This document describes how shadcn/ui components are set up and integrated into the Astro Tailwind Boilerplate.
+This document describes how shadcn-style components are set up and integrated into the Astro Tailwind Boilerplate.
 
 ## Overview
 
-shadcn/ui is a collection of beautifully designed, accessible, and customizable components built with Radix UI and Tailwind CSS. Since Astro doesn't have native shadcn/ui support, we've manually implemented the core components following the same design principles and patterns.
+We use **pure Astro components** that follow shadcn/ui design principles: CSS variable theming, accessible markup, and Tailwind utilities. No React or Radix UI—ideal for static sites and zero JS by default.
 
 ## Components Available
 
 ### Core Components
 
-- **Button** - Multiple variants (default, secondary, destructive, outline, ghost, link) and sizes (sm, default, lg, icon)
-- **Input** - Form input with consistent styling and accessibility features
-- **Textarea** - Multi-line text input component
-- **Card** - Container component with header, content, and footer sections
-- **Badge** - Status indicators and labels with multiple variants
+- **Button** - Variants: default, secondary, destructive, outline, ghost, link. Sizes: sm, default, lg, icon
+- **Input** - Form input with consistent styling and accessibility
+- **Textarea** - Multi-line text input
+- **Card** - Container with optional `header` and `footer` slots
+- **Badge** - Status indicators with variants: default, secondary, destructive, outline
 
 ### Component Structure
 
-Each component follows the shadcn/ui pattern:
+Each component follows shadcn patterns:
 - TypeScript interfaces for props
-- Consistent class naming using Tailwind CSS
-- Accessibility features built-in
-- Responsive design by default
-- CSS custom properties for theming
+- `cn()` utility for conflict-free class merging (clsx + tailwind-merge)
+- CSS custom properties for theming (light/dark)
+- Accessibility built-in (focus-visible, ARIA)
 
 ## File Structure
 
 ```
 src/
 ├── components/
-│   ├── ui/
-│   │   ├── Button.astro
-│   │   ├── Input.astro
-│   │   ├── Textarea.astro
-│   │   ├── Card.astro
-│   │   ├── CardHeader.astro
-│   │   ├── CardTitle.astro
-│   │   ├── CardDescription.astro
-│   │   ├── CardContent.astro
-│   │   ├── CardFooter.astro
-│   │   ├── Badge.astro
-│   │   └── index.ts
-│   └── ...
+│   └── ui/
+│       ├── Badge.astro
+│       ├── Button.astro
+│       ├── Card.astro
+│       ├── Input.astro
+│       ├── Textarea.astro
+│       └── index.ts          ← barrel export
 ├── lib/
-│   └── utils.ts
+│   └── utils.ts               ← cn() for class merging
 └── styles/
-    └── global.css
+    └── global.css             ← CSS variables
 ```
 
 ## Usage Examples
 
-### Basic Button
+### Import (path alias)
 
 ```astro
 ---
-import { Button } from '../components/ui';
+import { Button, Card, Input, Textarea, Badge } from '@/components/ui';
 ---
+```
 
-<Button variant="default" size="lg">
-  Click me
-</Button>
+### Basic Button
+
+```astro
+<Button variant="default" size="lg">Click me</Button>
 ```
 
 ### Button as Link
 
 ```astro
----
-import { Button } from '../components/ui';
----
-
-<Button as="a" href="/contact" variant="outline">
-  Contact Us
-</Button>
+<Button as="a" href="/contact" variant="outline">Contact Us</Button>
 ```
 
 ### Form Input
 
 ```astro
----
-import { Input } from '../components/ui';
----
-
-<Input 
-  type="email" 
-  placeholder="your@email.com" 
-  required 
-/>
+<Input type="email" placeholder="your@email.com" required />
 ```
 
-### Card Component
+### Card with Slots
 
 ```astro
----
-import { Card, CardHeader, CardTitle, CardContent } from '../components/ui';
----
-
 <Card>
-  <CardHeader>
-    <CardTitle>Card Title</CardTitle>
-  </CardHeader>
-  <CardContent>
-    <p>Card content goes here</p>
-  </CardContent>
+  <div slot="header">
+    <h3 class="text-lg font-semibold">Card Title</h3>
+    <p class="text-sm text-muted-foreground">Optional description.</p>
+  </div>
+  <p>Main content here.</p>
+  <div slot="footer" class="flex gap-2">
+    <Button size="sm">Cancel</Button>
+    <Button size="sm">Save</Button>
+  </div>
 </Card>
 ```
 
@@ -168,24 +148,21 @@ To add a new shadcn/ui component:
 
 ## Dependencies
 
-The following packages are required for shadcn/ui components:
+Required for the UI component system:
 
 ```json
 {
-  "devDependencies": {
-    "@types/node": "^24.3.0",
+  "dependencies": {
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "tailwind-merge": "^3.3.1"
+    "tailwind-merge": "^3.5.0"
   }
 }
 ```
 
-## Utility Functions
+## Utility: `cn()`
 
-### `cn()` Function
-
-The `cn()` utility function combines `clsx` and `tailwind-merge` for optimal class merging:
+The `cn()` function in `src/lib/utils.ts` merges class names and resolves Tailwind conflicts:
 
 ```typescript
 import { type ClassValue, clsx } from "clsx"
@@ -196,38 +173,25 @@ export function cn(...inputs: ClassValue[]) {
 }
 ```
 
-## Best Practices
+**Why it matters**: Without `tailwind-merge`, `cn('p-6', 'p-4')` would output both classes; the "winner" depends on CSS order. With `tailwind-merge`, `p-4` correctly overrides `p-6`.
 
-1. **Consistency**: Use the same prop patterns across components
-2. **Accessibility**: Always include proper ARIA attributes
-3. **Responsiveness**: Design for mobile-first, then enhance for larger screens
-4. **TypeScript**: Use strict typing for all component props
-5. **Documentation**: Document any non-obvious functionality
-6. **Testing**: Ensure components work across different viewports and devices
+## Best Practices (2026)
+
+1. **Use `cn()` for class merging** — All UI components use it for base + variant + `className` prop
+2. **Theme via CSS variables** — `--radius`, `--primary`, etc. in `global.css`; Tailwind maps them in `tailwind.config.mjs`
+3. **Path aliases** — Use `@/components/ui` and `@/lib/utils` (configured in `tsconfig.json`)
+4. **Accessibility** — Components include `focus-visible:ring-2`, ARIA support; add `aria-label` on icon-only buttons
+5. **Dark mode** — Toggle `.dark` on `<html>`; variables in `global.css` switch automatically
 
 ## Troubleshooting
 
-### Common Issues
+| Issue | Solution |
+|------|----------|
+| Class overrides not working | Ensure component uses `cn(baseClasses, className)` |
+| Theme colors wrong | Check `:root` / `.dark` in `global.css` |
+| Import path errors | Verify `tsconfig.json` has `"@/*": ["src/*"]` |
+| Tailwind classes missing | Run `pnpm build`; content paths include `./src/**/*.{astro,...}` |
 
-1. **Styling conflicts**: Ensure Tailwind CSS is properly configured
-2. **Type errors**: Check that all required props are provided
-3. **Responsive issues**: Verify breakpoint usage in Tailwind config
-4. **Accessibility warnings**: Use proper ARIA attributes and semantic HTML
+## Live Demo
 
-### Getting Help
-
-- Check the [shadcn/ui documentation](https://ui.shadcn.com/)
-- Review the component examples in `/components` page
-- Check the browser console for any errors
-- Verify Tailwind CSS compilation
-
-## Future Enhancements
-
-Potential improvements for the shadcn/ui integration:
-
-- Add more component variants
-- Implement dark mode support
-- Add animation and transition utilities
-- Create component playground for development
-- Add automated testing for components
-- Implement component composition patterns
+Visit `/components` to see all UI components in the "Design System (shadcn-style)" section.

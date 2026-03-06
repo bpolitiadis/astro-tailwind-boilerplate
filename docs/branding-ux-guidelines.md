@@ -27,6 +27,34 @@ This document outlines the design system, branding guidelines, and UX principles
 --color-primary-950: #172554;
 ```
 
+#### Brand Accent (Purple)
+
+Used for highlights, gradients, decorative elements, and secondary emphasis. Defined in `src/styles/global.css` as `--brand-accent`:
+
+```css
+/* Purple - Accent for highlights and decorative elements */
+:root {
+  --brand-accent: 263.4 70% 50.4%; /* ~#8b5cf6 */
+  --brand-accent-foreground: 0 0% 100%;
+}
+
+.dark {
+  --brand-accent: 263.4 70% 58%;
+  --brand-accent-foreground: 0 0% 100%;
+}
+```
+
+**Usage:**
+- Hero gradients (`from-brand-accent to-primary`)
+- Version badges, decorative dots
+- Card icons, chart accents
+- Selection highlight, ambient background glow
+- Links in prose/documentation
+
+**Primary vs Accent:**
+- **Primary (blue)**: Buttons, CTAs, navigation active states, form focus rings
+- **Brand accent (purple)**: Visual flair, gradients, decorative highlights
+
 #### Neutral Colors
 
 ```css

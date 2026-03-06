@@ -84,11 +84,12 @@ src/
 │   ├── Footer.astro
 │   ├── SkipLinks.astro
 │   └── ui/               ← shadcn-style component library
+│       ├── Badge.astro
 │       ├── Button.astro
 │       ├── Card.astro
 │       ├── Input.astro
 │       ├── Textarea.astro
-│       └── Badge.astro
+│       └── index.ts
 ├── config/
 │   └── site.config.ts    ← single source of truth for all site metadata
 ├── layouts/
