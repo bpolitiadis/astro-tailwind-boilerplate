@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import fs from 'fs';
 import path from 'path';
+import { getTitleFromFilename } from '@/lib/utils';
 
 export async function getStaticPaths() {
   const docsDir = path.resolve('./docs');
@@ -36,11 +37,6 @@ if (!doc) {
 }
 
 const DocContent = doc.Content;
-
-function getTitleFromFilename(filename: string) {
-  const name = filename.replace('.md', '');
-  return name.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-}
 
 const title = getTitleFromFilename(file);
 ---
