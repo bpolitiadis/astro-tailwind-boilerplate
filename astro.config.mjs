@@ -26,7 +26,7 @@ export default defineConfig({
 
   build: {
     // Inline small stylesheets for faster first paint (reduces render-blocking CSS)
-    inlineStylesheets: 'auto',
+    inlineStylesheets: 'never',
     // Output hashed asset filenames for long-term caching
     assets: '_astro',
   },
