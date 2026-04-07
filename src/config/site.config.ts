@@ -211,11 +211,19 @@ export const getSocialLinks = () => siteConfig.social;
 export const getBusinessHours = () => siteConfig.hours;
 export const getLegalInfo = () => siteConfig.legal;
 
-export function getBusinessAddress(): string {
-  const { address } = siteConfig.contact;
+/**
+ * Formats a physical address into a comma-separated string.
+ * @param address - The address object to format.
+ * @returns A formatted address string or an empty string if no address is provided.
+ */
+export function formatAddress(address?: ContactInfo['address']): string {
   if (!address) return '';
   const parts = [address.street, address.postalCode, address.city, address.country].filter(Boolean);
   return parts.join(', ');
+}
+
+export function getBusinessAddress(): string {
+  return formatAddress(siteConfig.contact.address);
 }
 
 export function getBusinessCoordinates(): { lat: number; lng: number } | null {
